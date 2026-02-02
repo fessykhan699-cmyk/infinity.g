@@ -137,6 +137,9 @@ const App: React.FC = () => {
   useEffect(() => {
     let animationFrame: number | null = null;
     let elements: HTMLElement[] = [];
+    const observer = new MutationObserver(() => {
+      elements = [];
+    });
 
     const updateElements = () => {
       if (elements.length === 0) {
@@ -171,10 +174,12 @@ const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
-    updateScroll();
+    observer.observe(document.body, { childList: true, subtree: true });
+    handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+      observer.disconnect();
       if (animationFrame !== null) {
         window.cancelAnimationFrame(animationFrame);
       }
