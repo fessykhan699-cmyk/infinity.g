@@ -147,7 +147,7 @@ const App: React.FC = () => {
     let elements: HTMLElement[] = [];
     let viewportHeight = window.innerHeight;
     let center = viewportHeight / 2;
-    let maxDist = viewportHeight * 0.4;
+    let maxDist = viewportHeight * MAX_DISTANCE_FACTOR;
     const queryElements = () => Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
 
     const updateViewport = () => {
