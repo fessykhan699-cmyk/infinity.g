@@ -10,6 +10,12 @@ import AdminVideoUploader from './components/AdminVideoUploader';
 import { ScrollReveal } from './components/ScrollReveal';
 import { SERVICES } from './constants';
 
+const MAX_DISTANCE_FACTOR = 0.4;
+const DISTANCE_OFFSET = 100;
+const PROGRESS_EXPONENT = 2;
+const RESIZE_DEBOUNCE_MS = 150;
+const MUTATION_DEBOUNCE_MS = 120;
+
 const ServicesSection = () => {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -135,21 +141,111 @@ const CapabilitiesSection = () => (
 
 const App: React.FC = () => {
   useEffect(() => {
-    const handleScroll = () => {
+    let animationFrame: number | null = null;
+    let mutationFrame: number | null = null;
+    let mutationTimeout: ReturnType<typeof window.setTimeout> | null = null;
+    let resizeTimeout: ReturnType<typeof window.setTimeout> | null = null;
+    let initFrame: number | null = null;
+    let elements: HTMLElement[] = [];
+    let viewportHeight = window.innerHeight;
+    let center = viewportHeight / 2;
+    let maxDist = viewportHeight * MAX_DISTANCE_FACTOR;
+    const queryElements = () => Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
+
+    const updateViewport = () => {
+      viewportHeight = window.innerHeight;
+      center = viewportHeight / 2;
+      maxDist = viewportHeight * MAX_DISTANCE_FACTOR;
+    };
+
+    const updateElements = (force = false) => {
+      const currentElements = queryElements();
+      const hasDisconnected = elements.some((element) => !element.isConnected);
+      if (force || elements.length === 0 || currentElements.length !== elements.length || hasDisconnected) {
+        elements = currentElements;
+      }
+      elements = elements.filter((element) => element.isConnected);
+    };
+
+    const updateScroll = () => {
       const scrolled = window.scrollY;
       document.documentElement.style.setProperty('--scroll-y', scrolled.toString());
-      const elements = document.querySelectorAll('.reactive-glass');
+      updateElements();
       elements.forEach((el) => {
-        const rect = (el as HTMLElement).getBoundingClientRect();
-        const center = window.innerHeight / 2;
+        const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
         const dist = Math.abs(elCenter - center);
-        const progress = Math.pow(Math.max(0, Math.min(1, (dist - 100) / (window.innerHeight * 0.4))), 2);
-        (el as HTMLElement).style.setProperty('--scroll-p', progress.toFixed(4));
+        const progress = Math.pow(Math.max(0, Math.min(1, (dist - DISTANCE_OFFSET) / maxDist)), PROGRESS_EXPONENT);
+        el.style.setProperty('--scroll-p', progress.toFixed(4));
       });
     };
+
+    const handleScroll = () => {
+      if (animationFrame !== null) {
+        return;
+      }
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = null;
+        updateScroll();
+      });
+    };
+
+    const handleResize = () => {
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout);
+      }
+      resizeTimeout = window.setTimeout(() => {
+        resizeTimeout = null;
+        updateViewport();
+        handleScroll();
+      }, RESIZE_DEBOUNCE_MS);
+    };
+
+    const observer = new MutationObserver(() => {
+      if (mutationTimeout !== null) {
+        window.clearTimeout(mutationTimeout);
+      }
+      mutationTimeout = window.setTimeout(() => {
+        mutationTimeout = null;
+        if (mutationFrame !== null) {
+          return;
+        }
+        mutationFrame = window.requestAnimationFrame(() => {
+          mutationFrame = null;
+          updateElements(true);
+          updateScroll();
+        });
+      }, MUTATION_DEBOUNCE_MS);
+    });
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize, { passive: true });
+    initFrame = window.requestAnimationFrame(() => {
+      updateViewport();
+      const observerTarget = document.querySelector('main') ?? document.documentElement;
+      observer.observe(observerTarget, { childList: true, subtree: true });
+      updateScroll();
+    });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+      if (initFrame !== null) {
+        window.cancelAnimationFrame(initFrame);
+      }
+      if (mutationFrame !== null) {
+        window.cancelAnimationFrame(mutationFrame);
+      }
+      if (mutationTimeout !== null) {
+        window.clearTimeout(mutationTimeout);
+      }
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout);
+      }
+    };
   }, []);
 
   return (
