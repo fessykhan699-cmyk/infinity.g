@@ -135,6 +135,11 @@ const CapabilitiesSection = () => (
 
 const App: React.FC = () => {
   useEffect(() => {
+    const MAX_DISTANCE_FACTOR = 0.4;
+    const DISTANCE_OFFSET = 100;
+    const PROGRESS_EXPONENT = 2;
+    const RESIZE_DEBOUNCE_MS = 150;
+    const MUTATION_DEBOUNCE_MS = 120;
     let animationFrame: number | null = null;
     let mutationFrame: number | null = null;
     let mutationTimeout: ReturnType<typeof window.setTimeout> | null = null;
@@ -148,7 +153,7 @@ const App: React.FC = () => {
     const updateViewport = () => {
       viewportHeight = window.innerHeight;
       center = viewportHeight / 2;
-      maxDist = viewportHeight * 0.4;
+      maxDist = viewportHeight * MAX_DISTANCE_FACTOR;
     };
 
     const updateElements = (force = false) => {
@@ -165,7 +170,7 @@ const App: React.FC = () => {
         const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
         const dist = Math.abs(elCenter - center);
-        const progress = Math.pow(Math.max(0, Math.min(1, (dist - 100) / maxDist)), 2);
+        const progress = Math.pow(Math.max(0, Math.min(1, (dist - DISTANCE_OFFSET) / maxDist)), PROGRESS_EXPONENT);
         el.style.setProperty('--scroll-p', progress.toFixed(4));
       });
     };
@@ -188,7 +193,7 @@ const App: React.FC = () => {
         resizeTimeout = null;
         updateViewport();
         handleScroll();
-      }, 150);
+      }, RESIZE_DEBOUNCE_MS);
     };
 
     const observer = new MutationObserver(() => {
@@ -205,7 +210,7 @@ const App: React.FC = () => {
           updateElements(true);
           updateScroll();
         });
-      }, 120);
+      }, MUTATION_DEBOUNCE_MS);
     });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
