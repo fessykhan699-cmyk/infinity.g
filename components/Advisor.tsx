@@ -81,7 +81,7 @@ const Advisor: React.FC = () => {
             </form>
           ) : (
             <ScrollReveal direction="up" className="animate-in fade-in zoom-in duration-700">
-              <div className="bg-white/10 border border-white/20 rounded-[2.5rem] p-8 md:p-12 mb-10 backdrop-blur-md">
+              <div className="bg-white/10 border border-white/20 rounded-[3rem] p-10 md:p-16 mb-12 backdrop-blur-md">
                 <div className="prose prose-invert max-w-none">
                   <div className="flex items-center gap-4 mb-10">
                     <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary">

@@ -112,7 +112,7 @@ body {
     translateY(calc(var(--p) * 10px))
     rotateX(var(--tilt-x))
     rotateY(var(--tilt-y));
-  filter: blur(calc(var(--p) * 4px)) brightness(calc(1 - (var(--p) * 0.05)));
+filter: blur(calc(var(--p) * 2.4px)) brightness(calc(1 - (var(--p) * 0.05)));
   opacity: calc(1 - (var(--p) * 0.5));
 }
 
@@ -124,7 +124,7 @@ body {
       translateY(calc(var(--p) * 15px))
       rotateX(var(--tilt-x))
       rotateY(var(--tilt-y));
-    filter: blur(calc(var(--p) * 8px)) brightness(calc(1 - (var(--p) * 0.07)));
+filter: blur(calc(var(--p) * 4.8px)) brightness(calc(1 - (var(--p) * 0.07)));
   }
 }
 

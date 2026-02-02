@@ -253,7 +253,7 @@ export default function PlaceholdersPage() {
 
           <button 
             onClick={clearGallery}
-            className="px-10 py-7 rounded-full border border-white/10 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] hover:text-white hover:border-white transition-all backdrop-blur-xl"
+            className="px-10 py-7 rounded-full border border-white/10 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] hover:text-white hover:border-white transition-all backdrop-blur-md"
           >
             Reset Forge
           </button>
@@ -273,7 +273,7 @@ export default function PlaceholdersPage() {
             <div className="glass-card rounded-[4rem] overflow-hidden border-white/10 aspect-video relative group reactive-glass bg-[#08080c]">
               {/* Progress Overlay */}
               {img.loading && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background-dark/90 backdrop-blur-3xl animate-in fade-in duration-500">
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background-dark/90 backdrop-blur-xl animate-in fade-in duration-500">
                    <div className="relative w-40 h-1 bg-white/5 rounded-full overflow-hidden mb-8">
                     <div 
                       className={`absolute inset-0 animate-[shimmer_2s_infinite] ${isPro ? 'bg-gradient-to-r from-secondary via-white to-secondary' : 'bg-gradient-to-r from-primary via-secondary to-primary'}`} 
@@ -323,7 +323,7 @@ export default function PlaceholdersPage() {
                   </div>
                   {/* Badge */}
                   <div className="absolute top-10 left-10 transition-opacity group-hover:opacity-0">
-                    <div className={`px-5 py-2 rounded-full bg-black/50 backdrop-blur-xl border border-white/10 text-[8px] font-black uppercase tracking-[0.3em] flex items-center gap-3 ${isPro ? 'text-secondary' : 'text-slate-400'}`}>
+                    <div className={`px-5 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[8px] font-black uppercase tracking-[0.3em] flex items-center gap-3 ${isPro ? 'text-secondary' : 'text-slate-400'}`}>
                       <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isPro ? 'bg-secondary' : 'bg-primary'}`}></div>
                       CORE_{i+1} • {selectedStyle} • {resolution}
                     </div>

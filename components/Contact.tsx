@@ -42,70 +42,70 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-48 px-4 max-w-6xl mx-auto border-t border-white/5">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="contact" className="py-16 sm:py-20 md:py-32 lg:py-48 px-4 sm:px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 md:gap-20 lg:gap-24 items-center">
         <ScrollReveal direction="left">
-          <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-8 leading-[0.9] tracking-tighter">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold text-white mb-8 sm:mb-10 md:mb-12 leading-[0.9] tracking-tighter">
             Build <br/><span className="gradient-text">Extraordinary</span>
           </h2>
-          <div className="space-y-8">
-            <div className="flex gap-8 group">
-              <div className="w-14 h-14 rounded-[1.5rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
-                <span className="material-icons-outlined text-xl">mail</span>
+          <div className="space-y-8 sm:space-y-10 md:space-y-12">
+            <div className="flex gap-6 sm:gap-8 group">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
+                <span className="material-icons-outlined text-xl sm:text-2xl">mail</span>
               </div>
               <div>
-                <h4 className="text-white font-bold text-base md:text-lg lg:text-xl mb-1">Direct Communications</h4>
-                <p className="text-slate-400 text-base md:text-lg lg:text-xl">hello@infinitydigital.ae</p>
+                <h4 className="text-white font-bold text-base sm:text-lg mb-1">Direct Communications</h4>
+                <p className="text-slate-400 text-base sm:text-lg break-all">hello@infinitydigital.ae</p>
               </div>
             </div>
-            <div className="flex gap-8 group">
-              <div className="w-14 h-14 rounded-[1.5rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
-                <span className="material-icons-outlined text-xl">pin_drop</span>
+            <div className="flex gap-6 sm:gap-8 group">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
+                <span className="material-icons-outlined text-xl sm:text-2xl">pin_drop</span>
               </div>
               <div>
-                <h4 className="text-white font-bold text-base md:text-lg lg:text-xl mb-1">Dubai Digital Park</h4>
-                <p className="text-slate-400 text-base md:text-lg lg:text-xl">Silicon Oasis HQ, UAE</p>
+                <h4 className="text-white font-bold text-base sm:text-lg mb-1">Dubai Digital Park</h4>
+                <p className="text-slate-400 text-base sm:text-lg">Silicon Oasis HQ, UAE</p>
               </div>
             </div>
           </div>
         </ScrollReveal>
 
         <ScrollReveal direction="right">
-          <div className="glass-card rounded-[3rem] p-6 md:p-10 border-white/10 reactive-glass relative overflow-hidden">
+          <div className="glass-card rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] lg:rounded-[4rem] p-6 sm:p-8 md:p-12 lg:p-16 border-white/10 reactive-glass relative overflow-hidden">
             {isSuccess ? (
-                <div className="text-center py-16 space-y-6 animate-in fade-in zoom-in duration-700">
-                <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 mx-auto">
-                  <span className="material-icons-outlined text-3xl">done_all</span>
+              <div className="text-center py-12 sm:py-16 md:py-20 space-y-6 sm:space-y-8 animate-in fade-in zoom-in duration-500">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 mx-auto">
+                  <span className="material-icons-outlined text-3xl sm:text-4xl">done_all</span>
                 </div>
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Transmission Successful</h3>
-                  <p className="text-slate-400 text-base md:text-lg max-w-xs mx-auto">Your inquiry has been persisted to our enterprise secure vault.</p>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Transmission Successful</h3>
+                  <p className="text-slate-400 text-base sm:text-lg max-w-xs mx-auto">Your inquiry has been persisted to our enterprise secure vault.</p>
                 </div>
                 {aiStrategy && (
-                  <div className="p-6 bg-white/5 rounded-2xl text-left border border-white/10 max-h-48 overflow-y-auto">
+                  <div className="p-6 sm:p-8 bg-white/5 rounded-2xl sm:rounded-3xl text-left border border-white/10 max-h-40 sm:max-h-48 overflow-y-auto">
                     <p className="text-[9px] font-black text-primary uppercase tracking-[0.4em] mb-4">Strategic Preview</p>
                     <p className="text-xs text-slate-400 whitespace-pre-line font-light">{aiStrategy}</p>
                   </div>
                 )}
-                <button onClick={() => setIsSuccess(false)} className="min-h-[44px] text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all">New Inquiry</button>
+                <button onClick={() => setIsSuccess(false)} className="text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all min-h-[44px] px-6 py-3">New Inquiry</button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 md:space-y-10">
+                <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
+                  <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Principal Name</label>
-                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 min-h-[44px] text-white focus:border-primary transition-all" />
+                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Secure Email</label>
-                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 min-h-[44px] text-white focus:border-primary transition-all" />
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Project Brief & Industry</label>
-                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
+                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
                 </div>
-                <button type="submit" disabled={isSubmitting} className="w-full py-5 min-h-[44px] rounded-2xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
+                <button type="submit" disabled={isSubmitting} className="w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
                   {isSubmitting ? 'Establishing Secure Link...' : 'Submit to Registry'}
                 </button>
               </form>

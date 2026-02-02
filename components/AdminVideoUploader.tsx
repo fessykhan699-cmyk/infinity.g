@@ -62,7 +62,7 @@ const AdminVideoUploader: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] flex flex-col items-end gap-4">
       {isExpanded && (
-        <div className="glass-card p-5 md:p-6 rounded-[2rem] w-[calc(100vw-3rem)] sm:w-80 animate-in slide-in-from-bottom-4 fade-in duration-300 shadow-2xl border-primary/20 backdrop-blur-xl">
+        <div className="glass-card p-5 md:p-6 rounded-[2rem] w-[calc(100vw-3rem)] sm:w-80 animate-in slide-in-from-bottom-4 fade-in duration-300 shadow-2xl border-primary/20 backdrop-blur-md">
           <div className="flex justify-between items-center mb-5 md:mb-6">
             <h4 className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Experience Manager</h4>
             <button onClick={() => setIsExpanded(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-slate-500 hover:text-white transition-colors">
