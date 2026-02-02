@@ -151,8 +151,9 @@ const App: React.FC = () => {
       const scrolled = window.scrollY;
       document.documentElement.style.setProperty('--scroll-y', scrolled.toString());
       updateElements();
-      const center = window.innerHeight / 2;
-      const maxDist = window.innerHeight * 0.4;
+      const viewportHeight = window.innerHeight;
+      const center = viewportHeight / 2;
+      const maxDist = viewportHeight * 0.4;
       elements.forEach((el) => {
         const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
@@ -200,8 +201,8 @@ const App: React.FC = () => {
       if (observerTarget) {
         observer.observe(observerTarget, { childList: true, subtree: true });
       }
+      updateScroll();
     });
-    updateScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
