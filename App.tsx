@@ -137,7 +137,7 @@ const App: React.FC = () => {
   useEffect(() => {
     let animationFrame: number | null = null;
     let mutationFrame: number | null = null;
-    let resizeTimeout: number | null = null;
+    let resizeTimeout: ReturnType<typeof window.setTimeout> | null = null;
     let elements: HTMLElement[] = [];
     const queryElements = () => Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
 
@@ -196,8 +196,9 @@ const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
-    observer.observe(observerTarget, { childList: true, subtree: true });
-    updateElements();
+    if (observerTarget) {
+      observer.observe(observerTarget, { childList: true, subtree: true });
+    }
     handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
