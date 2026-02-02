@@ -97,22 +97,22 @@ const Studio: React.FC = () => {
   };
 
   return (
-    <section id="studio" className="py-24 md:py-48 px-6 max-w-7xl mx-auto relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1000px] h-[600px] bg-primary/10 rounded-full blur-[200px] pointer-events-none -z-10"></div>
+    <section id="studio" className="py-16 sm:py-20 md:py-32 lg:py-48 px-4 sm:px-6 max-w-7xl mx-auto relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] lg:max-w-[1000px] h-[400px] lg:h-[600px] bg-primary/10 rounded-full blur-[120px] lg:blur-[150px] pointer-events-none -z-10"></div>
       
-      <ScrollReveal direction="up" className="text-center mb-24">
-        <h2 className="text-5xl md:text-8xl font-display font-bold text-white mb-8">
+      <ScrollReveal direction="up" className="text-center mb-16 sm:mb-20 md:mb-24">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-white mb-6 sm:mb-8">
           Infinity <span className="gradient-text">Studio</span>
         </h2>
-        <p className="text-slate-200 text-lg md:text-2xl font-light max-w-3xl mx-auto leading-relaxed">
+        <p className="text-slate-200 text-base sm:text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto leading-relaxed px-4">
           The ultimate digital forge for high-fidelity architectural assets and enterprise visuals.
         </p>
       </ScrollReveal>
 
-      <div className="grid lg:grid-cols-12 gap-16 items-start mb-32">
+      <div className="grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-start mb-20 sm:mb-24 md:mb-32">
         {/* Advanced Controls Panel */}
-        <ScrollReveal direction="left" className="lg:col-span-5 space-y-8">
-          <div className="glass-card p-10 rounded-[3rem] border-white/20 reactive-glass space-y-10">
+        <ScrollReveal direction="left" className="lg:col-span-5 space-y-6 sm:space-y-8">
+          <div className="glass-card p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] border-white/20 reactive-glass space-y-6 sm:space-y-8 md:space-y-10">
             {/* Model Selection */}
             <div className="space-y-4">
               <div className="flex justify-between items-center mb-1">
@@ -233,7 +233,7 @@ const Studio: React.FC = () => {
             <button 
               onClick={(e) => handleGenerate(e)}
               disabled={loading || !prompt}
-              className="w-full py-7 rounded-3xl bg-primary text-white text-xs font-black uppercase tracking-[0.4em] hover:brightness-110 transition-all shadow-2xl active:scale-[0.98] disabled:opacity-20"
+              className="w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-primary text-white text-xs font-black uppercase tracking-[0.4em] hover:brightness-110 transition-all shadow-2xl active:scale-[0.98] disabled:opacity-20"
             >
               {loading ? 'Synthesizing Neural Layers...' : 'Forge Reality'}
             </button>
@@ -242,11 +242,11 @@ const Studio: React.FC = () => {
 
         {/* Display Panel */}
         <ScrollReveal direction="right" className="lg:col-span-7 h-full">
-          <div className="glass-card rounded-[4rem] border-white/20 p-5 min-h-[600px] flex flex-col reactive-glass overflow-hidden group">
-            <div className="relative flex-grow rounded-[3.2rem] overflow-hidden bg-white/[0.05] border border-white/10 flex items-center justify-center">
+          <div className="glass-card rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] lg:rounded-[4rem] border-white/20 p-4 sm:p-5 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] flex flex-col reactive-glass overflow-hidden group">
+            <div className="relative flex-grow rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3.2rem] overflow-hidden bg-white/[0.05] border border-white/10 flex items-center justify-center">
               {loading && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background-dark/80 backdrop-blur-xl">
-                  <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden mb-6">
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background-dark/80 backdrop-blur-md">
+                  <div className="w-32 sm:w-40 md:w-48 h-1 bg-white/20 rounded-full overflow-hidden mb-4 sm:mb-6">
                     <div className="h-full bg-primary animate-[shimmer_2s_infinite]" />
                   </div>
                   <p className="text-[10px] font-black text-white uppercase tracking-[0.6em] animate-pulse">Rendering Reality</p>
@@ -254,35 +254,35 @@ const Studio: React.FC = () => {
               )}
 
               {error ? (
-                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-12 text-center bg-background-dark/90 backdrop-blur-2xl animate-in fade-in duration-500">
-                  <div className="w-20 h-20 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent mb-8">
-                    <span className="material-icons-outlined text-4xl">{error.type === 'auth' ? 'key_off' : 'error_outline'}</span>
+                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 sm:p-8 md:p-12 text-center bg-background-dark/90 backdrop-blur-lg animate-in fade-in duration-500">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent mb-6 sm:mb-8">
+                    <span className="material-icons-outlined text-3xl sm:text-4xl">{error.type === 'auth' ? 'key_off' : 'error_outline'}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-wider">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 uppercase tracking-wider">
                     {error.type === 'auth' ? 'Authentication Required' : 'Neural Interface Error'}
                   </h3>
-                  <p className="text-slate-200 text-sm max-w-sm mb-10 leading-relaxed">
+                  <p className="text-slate-200 text-sm max-w-sm mb-6 sm:mb-10 leading-relaxed">
                     {error.message}
                   </p>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     {error.type === 'auth' ? (
                        <button 
                         onClick={handleProToggle}
-                        className="px-10 py-4 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:brightness-110"
+                        className="px-8 sm:px-10 py-3 sm:py-4 min-h-[44px] rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:brightness-110"
                       >
                         Re-authenticate Pro
                       </button>
                     ) : (
                       <button 
                         onClick={() => handleGenerate()}
-                        className="px-10 py-4 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-slate-200"
+                        className="px-8 sm:px-10 py-3 sm:py-4 min-h-[44px] rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-slate-200"
                       >
                         Retry Synthesis
                       </button>
                     )}
                     <button 
                       onClick={() => setError(null)}
-                      className="px-10 py-4 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:bg-white/20"
+                      className="px-8 sm:px-10 py-3 sm:py-4 min-h-[44px] rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:bg-white/20"
                     >
                       Dismiss
                     </button>
@@ -295,25 +295,25 @@ const Studio: React.FC = () => {
                     alt={`AI-synthesized visual in ${stylePreset} style based on the project concept: ${prompt}`} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                   />
-                  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 opacity-0 group-hover:opacity-100 transition-all">
-                    <button onClick={handleSaveToHistory} disabled={saving || isSaved} className="px-8 py-4 rounded-full bg-secondary text-white text-[10px] font-black uppercase tracking-widest shadow-2xl hover:brightness-110">
+                  <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0 group-hover:opacity-100 transition-all px-4">
+                    <button onClick={handleSaveToHistory} disabled={saving || isSaved} className="px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] rounded-full bg-secondary text-white text-[10px] font-black uppercase tracking-widest shadow-2xl hover:brightness-110 whitespace-nowrap">
                       {isSaved ? 'Archived' : 'Curate to Gallery'}
                     </button>
-                    <button onClick={() => setGeneratedImage(null)} className="px-8 py-4 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest">
+                    <button onClick={() => setGeneratedImage(null)} className="px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] rounded-full bg-black/60 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-widest">
                       Discard
                     </button>
                   </div>
                 </>
               ) : !loading && (
-                <div className="text-center p-20 opacity-40">
-                  <span className="material-icons-outlined text-8xl mb-8">tempest</span>
+                <div className="text-center p-12 sm:p-16 md:p-20 opacity-40">
+                  <span className="material-icons-outlined text-6xl sm:text-7xl md:text-8xl mb-6 sm:mb-8">tempest</span>
                   <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Awaiting Brief</p>
                 </div>
               )}
             </div>
             
-            <div className="p-6 flex justify-between items-center">
-               <div className="flex gap-4">
+            <div className="p-4 sm:p-5 md:p-6 flex justify-between items-center">
+               <div className="flex gap-3 sm:gap-4">
                  <div className={`w-2 h-2 rounded-full ${isPro ? 'bg-secondary animate-pulse' : 'bg-primary'}`}></div>
                  <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest">
                    {isPro ? `${stylePreset} Pro Core • ${imageSize}` : `${stylePreset} Flash Engine`}
@@ -327,24 +327,24 @@ const Studio: React.FC = () => {
 
       {/* Persistent History Gallery */}
       {history.length > 0 && (
-        <ScrollReveal direction="up" className="space-y-16">
-          <div className="flex items-center gap-8">
-             <h3 className="text-3xl font-display font-bold text-white uppercase tracking-widest">Neural <span className="gradient-text">Gallery</span></h3>
+        <ScrollReveal direction="up" className="space-y-12 sm:space-y-16">
+          <div className="flex items-center gap-6 sm:gap-8">
+             <h3 className="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-widest">Neural <span className="gradient-text">Gallery</span></h3>
              <div className="h-px flex-grow bg-white/10" />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
             {history.map((item, i) => (
-              <div key={i} className="glass-card rounded-[2.5rem] overflow-hidden aspect-square reactive-glass group border-white/10">
+              <div key={i} className="glass-card rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden aspect-square reactive-glass group border-white/10">
                 <img 
                   src={item.imageData} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                   alt={`Archived visual synthesis for prompt: ${item.prompt}`} 
                 />
-                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col justify-end p-6">
+                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col justify-end p-4 sm:p-6">
                   <p className="text-[8px] text-white font-black uppercase tracking-widest line-clamp-2 mb-2">{item.prompt}</p>
                   <button 
                     onClick={() => setGeneratedImage(item.imageData)}
-                    className="w-full py-2 rounded-xl bg-white/20 text-[8px] font-bold uppercase text-white hover:bg-white/30"
+                    className="w-full py-2 min-h-[36px] rounded-xl bg-white/20 text-[8px] font-bold uppercase text-white hover:bg-white/30"
                   >
                     View Original
                   </button>

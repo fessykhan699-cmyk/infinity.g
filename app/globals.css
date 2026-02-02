@@ -112,7 +112,7 @@ body {
     translateY(calc(var(--p) * 10px))
     rotateX(var(--tilt-x))
     rotateY(var(--tilt-y));
-  filter: blur(calc(var(--p) * 6px)) brightness(calc(1 - (var(--p) * 0.07)));
+  filter: blur(calc(var(--p) * 3.5px)) brightness(calc(1 - (var(--p) * 0.07)));
   opacity: calc(1 - (var(--p) * 0.5));
 }
 
@@ -124,14 +124,14 @@ body {
       translateY(calc(var(--p) * 15px))
       rotateX(var(--tilt-x))
       rotateY(var(--tilt-y));
-    filter: blur(calc(var(--p) * 12px)) brightness(calc(1 - (var(--p) * 0.1)));
+    filter: blur(calc(var(--p) * 7px)) brightness(calc(1 - (var(--p) * 0.1)));
   }
 }
 
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
@@ -143,8 +143,8 @@ body {
 
 @media (min-width: 768px) {
   .glass-card {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transform-style: preserve-3d;
   }
   
