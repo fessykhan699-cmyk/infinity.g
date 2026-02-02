@@ -9,30 +9,32 @@ import AdminVideoUploader from '../components/AdminVideoUploader';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SERVICES } from '../constants';
 
+const TILT_SENSITIVITY = 35;
+
 const ServicesSection = () => {
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     // Disable tilt on non-pointer devices via CSS media query logic or simple check
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
-    const card = e.currentTarget;
+    const card = event.currentTarget;
     const rect = card.getBoundingClientRect();
     
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
     
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 35; 
-    const rotateY = (centerX - x) / 35; 
+    const rotateX = (mouseY - centerY) / TILT_SENSITIVITY; 
+    const rotateY = (centerX - mouseX) / TILT_SENSITIVITY; 
     
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
+    card.style.setProperty('--mouse-x', `${mouseX}px`);
+    card.style.setProperty('--mouse-y', `${mouseY}px`);
     card.style.setProperty('--tilt-x', `${-rotateX}deg`);
     card.style.setProperty('--tilt-y', `${-rotateY}deg`);
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
+  const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+    const card = event.currentTarget;
     card.style.setProperty('--tilt-x', `0deg`);
     card.style.setProperty('--tilt-y', `0deg`);
   };
@@ -49,7 +51,7 @@ const ServicesSection = () => {
       </ScrollReveal>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-14">
-        {SERVICES.map((service, i) => {
+        {SERVICES.map((service, serviceIndex) => {
           const titleParts = service.title.split(' — ');
           const gigLabel = titleParts[0];
           const serviceName = titleParts[1];
@@ -58,7 +60,7 @@ const ServicesSection = () => {
           const lastWord = nameWords[nameWords.length - 1];
 
           return (
-            <ScrollReveal key={i} direction="up" delay={i * 80}>
+            <ScrollReveal key={serviceIndex} direction="up" delay={serviceIndex * 80}>
               <div 
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}

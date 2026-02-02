@@ -16,8 +16,8 @@ const Contact: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [aiStrategy, setAiStrategy] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setAiStrategy(null);
     
@@ -34,8 +34,8 @@ const Contact: React.FC = () => {
       });
       
       setIsSuccess(true);
-    } catch (err) {
-      console.error('Submission failed:', err);
+    } catch (error) {
+      console.error('Submission failed:', error);
     } finally {
       setIsSubmitting(false);
     }

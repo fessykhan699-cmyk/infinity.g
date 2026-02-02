@@ -9,15 +9,15 @@ const Advisor: React.FC = () => {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleGenerate = async (event: React.FormEvent) => {
+    event.preventDefault();
     if (!industry || !goals) return;
     
     setLoading(true);
     try {
       const strategy = await generateProjectStrategy(industry, goals);
       setResult(strategy);
-    } catch (err) {
+    } catch (error) {
       console.error("Strategy synthesis failed");
     } finally {
       setLoading(false);
