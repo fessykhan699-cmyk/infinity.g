@@ -137,6 +137,7 @@ const App: React.FC = () => {
   useEffect(() => {
     let animationFrame: number | null = null;
     let mutationFrame: number | null = null;
+    let mutationTimeout: ReturnType<typeof window.setTimeout> | null = null;
     let resizeTimeout: ReturnType<typeof window.setTimeout> | null = null;
     let elements: HTMLElement[] = [];
     let viewportHeight = window.innerHeight;
@@ -191,14 +192,20 @@ const App: React.FC = () => {
     };
 
     const observer = new MutationObserver(() => {
-      if (mutationFrame !== null) {
-        return;
+      if (mutationTimeout !== null) {
+        window.clearTimeout(mutationTimeout);
       }
-      mutationFrame = window.requestAnimationFrame(() => {
-        mutationFrame = null;
-        updateElements(true);
-        updateScroll();
-      });
+      mutationTimeout = window.setTimeout(() => {
+        mutationTimeout = null;
+        if (mutationFrame !== null) {
+          return;
+        }
+        mutationFrame = window.requestAnimationFrame(() => {
+          mutationFrame = null;
+          updateElements(true);
+          updateScroll();
+        });
+      }, 120);
     });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -218,6 +225,9 @@ const App: React.FC = () => {
       }
       if (mutationFrame !== null) {
         window.cancelAnimationFrame(mutationFrame);
+      }
+      if (mutationTimeout !== null) {
+        window.clearTimeout(mutationTimeout);
       }
       if (resizeTimeout !== null) {
         window.clearTimeout(resizeTimeout);
