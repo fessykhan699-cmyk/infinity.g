@@ -3,7 +3,7 @@ import React, { useEffect, useRef, ReactNode } from 'react';
 
 interface ScrollRevealProps {
   children: ReactNode;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade-slow';
+  direction?: 'up' | 'down' | 'left' | 'right' | 'fade-slow';
   delay?: number;
   className?: string;
   threshold?: number;
