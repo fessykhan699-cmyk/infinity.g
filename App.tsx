@@ -179,10 +179,9 @@ const App: React.FC = () => {
       resizeTimeout = window.setTimeout(() => {
         resizeTimeout = null;
         handleScroll();
-      }, 100);
+      }, 150);
     };
 
-    const observerTarget = document.querySelector('main') ?? document.body;
     const observer = new MutationObserver(() => {
       if (mutationFrame !== null) {
         return;
@@ -196,10 +195,13 @@ const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
-    if (observerTarget) {
-      observer.observe(observerTarget, { childList: true, subtree: true });
-    }
-    handleScroll();
+    window.requestAnimationFrame(() => {
+      const observerTarget = document.querySelector('main') ?? document.body;
+      if (observerTarget) {
+        observer.observe(observerTarget, { childList: true, subtree: true });
+      }
+    });
+    updateScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
