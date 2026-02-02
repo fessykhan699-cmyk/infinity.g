@@ -136,17 +136,14 @@ const CapabilitiesSection = () => (
 const App: React.FC = () => {
   useEffect(() => {
     let animationFrame: number | null = null;
+    let mutationFrame: number | null = null;
+    let resizeTimeout: number | null = null;
     let elements: HTMLElement[] = [];
-    const observerTarget = document.querySelector('main') ?? document.body;
-    const observer = new MutationObserver(() => {
-      elements = [];
-      updateElements();
-      handleScroll();
-    });
+    const queryElements = () => Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
 
-    const updateElements = () => {
-      if (elements.length === 0) {
-        elements = Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
+    const updateElements = (force = false) => {
+      if (force || elements.length === 0) {
+        elements = queryElements();
       }
     };
 
@@ -175,17 +172,45 @@ const App: React.FC = () => {
       });
     };
 
+    const handleResize = () => {
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout);
+      }
+      resizeTimeout = window.setTimeout(() => {
+        resizeTimeout = null;
+        handleScroll();
+      }, 100);
+    };
+
+    const observerTarget = document.querySelector('main') ?? document.body;
+    const observer = new MutationObserver(() => {
+      if (mutationFrame !== null) {
+        return;
+      }
+      mutationFrame = window.requestAnimationFrame(() => {
+        mutationFrame = null;
+        updateElements(true);
+        updateScroll();
+      });
+    });
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
     observer.observe(observerTarget, { childList: true, subtree: true });
     updateElements();
     handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('resize', handleResize);
       observer.disconnect();
       if (animationFrame !== null) {
         window.cancelAnimationFrame(animationFrame);
+      }
+      if (mutationFrame !== null) {
+        window.cancelAnimationFrame(mutationFrame);
+      }
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout);
       }
     };
   }, []);
