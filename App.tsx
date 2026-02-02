@@ -139,7 +139,16 @@ const App: React.FC = () => {
     let mutationFrame: number | null = null;
     let resizeTimeout: ReturnType<typeof window.setTimeout> | null = null;
     let elements: HTMLElement[] = [];
+    let viewportHeight = window.innerHeight;
+    let center = viewportHeight / 2;
+    let maxDist = viewportHeight * 0.4;
     const queryElements = () => Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
+
+    const updateViewport = () => {
+      viewportHeight = window.innerHeight;
+      center = viewportHeight / 2;
+      maxDist = viewportHeight * 0.4;
+    };
 
     const updateElements = (force = false) => {
       if (force || elements.length === 0) {
@@ -151,9 +160,6 @@ const App: React.FC = () => {
       const scrolled = window.scrollY;
       document.documentElement.style.setProperty('--scroll-y', scrolled.toString());
       updateElements();
-      const viewportHeight = window.innerHeight;
-      const center = viewportHeight / 2;
-      const maxDist = viewportHeight * 0.4;
       elements.forEach((el) => {
         const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
@@ -179,6 +185,7 @@ const App: React.FC = () => {
       }
       resizeTimeout = window.setTimeout(() => {
         resizeTimeout = null;
+        updateViewport();
         handleScroll();
       }, 150);
     };
@@ -197,10 +204,9 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
     window.requestAnimationFrame(() => {
-      const observerTarget = document.querySelector('main') ?? document.body;
-      if (observerTarget) {
-        observer.observe(observerTarget, { childList: true, subtree: true });
-      }
+      updateViewport();
+      const observerTarget = document.querySelector('main') ?? document.body ?? document.documentElement;
+      observer.observe(observerTarget, { childList: true, subtree: true });
       updateScroll();
     });
     return () => {
