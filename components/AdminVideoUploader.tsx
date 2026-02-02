@@ -40,9 +40,9 @@ const AdminVideoUploader: React.FC = () => {
       } else {
         setStatus('error');
         try {
-          const data = JSON.parse(xhr.responseText);
-          setErrorMessage(data.error || 'Upload failed');
-        } catch (e) {
+          const uploadResponse = JSON.parse(xhr.responseText);
+          setErrorMessage(uploadResponse.error || 'Upload failed');
+        } catch (parseError) {
           setErrorMessage('Upload failed');
         }
       }

@@ -45,12 +45,12 @@ const DynamicBackgroundVideo: React.FC = () => {
       try {
         const response = await fetch('/api/video-url');
         if (response.ok) {
-          const data = await response.json();
-          setVideoUrl(data.url || VIDEO_SOURCES[0]);
+          const videoUrlData = await response.json();
+          setVideoUrl(videoUrlData.url || VIDEO_SOURCES[0]);
         } else {
           setVideoUrl(VIDEO_SOURCES[0]);
         }
-      } catch (err) {
+      } catch (error) {
         setVideoUrl(VIDEO_SOURCES[0]);
       }
     };
@@ -124,13 +124,13 @@ const DynamicBackgroundVideo: React.FC = () => {
     }
   };
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseFloat(e.target.value);
-    setVolume(val);
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const volumeValue = parseFloat(event.target.value);
+    setVolume(volumeValue);
     if (videoRef.current) {
-      videoRef.current.volume = val;
-      videoRef.current.muted = val === 0;
-      setIsMuted(val === 0);
+      videoRef.current.volume = volumeValue;
+      videoRef.current.muted = volumeValue === 0;
+      setIsMuted(volumeValue === 0);
     }
   };
 
