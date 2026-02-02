@@ -160,7 +160,8 @@ const App: React.FC = () => {
 
     const updateElements = (force = false) => {
       const currentElements = queryElements();
-      if (force || elements.length === 0 || currentElements.length !== elements.length) {
+      const hasDisconnected = elements.some((element) => !element.isConnected);
+      if (force || elements.length === 0 || currentElements.length !== elements.length || hasDisconnected) {
         elements = currentElements;
       }
       elements = elements.filter((element) => element.isConnected);
@@ -222,9 +223,7 @@ const App: React.FC = () => {
     initFrame = window.requestAnimationFrame(() => {
       updateViewport();
       const observerTarget = document.querySelector('main') ?? document.documentElement;
-      if (observerTarget) {
-        observer.observe(observerTarget, { childList: true, subtree: true });
-      }
+      observer.observe(observerTarget, { childList: true, subtree: true });
       updateScroll();
     });
     return () => {
