@@ -162,7 +162,6 @@ const App: React.FC = () => {
       const currentElements = queryElements();
       if (force || elements.length === 0 || currentElements.length !== elements.length) {
         elements = currentElements;
-        return;
       }
       elements = elements.filter((element) => element.isConnected);
     };
@@ -223,7 +222,9 @@ const App: React.FC = () => {
     initFrame = window.requestAnimationFrame(() => {
       updateViewport();
       const observerTarget = document.querySelector('main') ?? document.documentElement;
-      observer.observe(observerTarget, { childList: true, subtree: true });
+      if (observerTarget) {
+        observer.observe(observerTarget, { childList: true, subtree: true });
+      }
       updateScroll();
     });
     return () => {
