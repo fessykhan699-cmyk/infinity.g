@@ -205,7 +205,7 @@ const App: React.FC = () => {
     window.addEventListener('resize', handleResize, { passive: true });
     window.requestAnimationFrame(() => {
       updateViewport();
-      const observerTarget = document.querySelector('main') ?? document.body ?? document.documentElement;
+      const observerTarget = document.querySelector('main') ?? document.documentElement;
       observer.observe(observerTarget, { childList: true, subtree: true });
       updateScroll();
     });
