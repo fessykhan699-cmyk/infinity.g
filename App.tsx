@@ -10,6 +10,12 @@ import AdminVideoUploader from './components/AdminVideoUploader';
 import { ScrollReveal } from './components/ScrollReveal';
 import { SERVICES } from './constants';
 
+const MAX_DISTANCE_FACTOR = 0.4;
+const DISTANCE_OFFSET = 100;
+const PROGRESS_EXPONENT = 2;
+const RESIZE_DEBOUNCE_MS = 150;
+const MUTATION_DEBOUNCE_MS = 120;
+
 const ServicesSection = () => {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -135,11 +141,6 @@ const CapabilitiesSection = () => (
 
 const App: React.FC = () => {
   useEffect(() => {
-    const MAX_DISTANCE_FACTOR = 0.4;
-    const DISTANCE_OFFSET = 100;
-    const PROGRESS_EXPONENT = 2;
-    const RESIZE_DEBOUNCE_MS = 150;
-    const MUTATION_DEBOUNCE_MS = 120;
     let animationFrame: number | null = null;
     let mutationFrame: number | null = null;
     let mutationTimeout: ReturnType<typeof window.setTimeout> | null = null;
