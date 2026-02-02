@@ -135,21 +135,50 @@ const CapabilitiesSection = () => (
 
 const App: React.FC = () => {
   useEffect(() => {
-    const handleScroll = () => {
+    let animationFrame: number | null = null;
+    let elements: HTMLElement[] = [];
+
+    const updateElements = () => {
+      if (elements.length === 0) {
+        elements = Array.from(document.querySelectorAll<HTMLElement>('.reactive-glass'));
+      }
+    };
+
+    const updateScroll = () => {
       const scrolled = window.scrollY;
       document.documentElement.style.setProperty('--scroll-y', scrolled.toString());
-      const elements = document.querySelectorAll('.reactive-glass');
+      updateElements();
+      const center = window.innerHeight / 2;
+      const maxDist = window.innerHeight * 0.4;
       elements.forEach((el) => {
-        const rect = (el as HTMLElement).getBoundingClientRect();
-        const center = window.innerHeight / 2;
+        const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
         const dist = Math.abs(elCenter - center);
-        const progress = Math.pow(Math.max(0, Math.min(1, (dist - 100) / (window.innerHeight * 0.4))), 2);
-        (el as HTMLElement).style.setProperty('--scroll-p', progress.toFixed(4));
+        const progress = Math.pow(Math.max(0, Math.min(1, (dist - 100) / maxDist)), 2);
+        el.style.setProperty('--scroll-p', progress.toFixed(4));
       });
     };
+
+    const handleScroll = () => {
+      if (animationFrame !== null) {
+        return;
+      }
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = null;
+        updateScroll();
+      });
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    updateScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   return (
