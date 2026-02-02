@@ -149,7 +149,7 @@ const Studio: React.FC = () => {
 
             {/* Quality & Grounding only for Pro */}
             {isPro && (
-              <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-500">
+              <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-[700ms]">
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] ml-1">Target Resolution</label>
                   <div className="grid grid-cols-3 gap-3">
@@ -157,7 +157,7 @@ const Studio: React.FC = () => {
                       <button 
                         key={size}
                         onClick={() => setImageSize(size as any)}
-                        className={`py-3 rounded-xl border text-[9px] font-black tracking-widest transition-all ${
+                        className={`py-3 min-h-[44px] rounded-xl border text-[9px] font-black tracking-widest transition-all ${
                           imageSize === size ? 'bg-secondary/30 border-secondary text-white' : 'bg-white/10 border-white/20 text-slate-400 hover:border-white/30 hover:text-white'
                         }`}
                       >
@@ -167,7 +167,7 @@ const Studio: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-6 bg-white/10 rounded-3xl border border-white/20 flex items-center justify-between">
+                <div className="p-5 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-between">
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black text-white uppercase tracking-widest">Web Grounding</span>
                     <span className="text-[8px] text-slate-300 uppercase">Contextual Accuracy</span>
@@ -175,9 +175,9 @@ const Studio: React.FC = () => {
                   <button 
                     type="button" 
                     onClick={() => setUseSearch(!useSearch)}
-                    className={`w-12 h-6 rounded-full relative transition-all ${useSearch ? 'bg-secondary' : 'bg-white/20'}`}
+                    className={`w-12 h-12 rounded-full relative transition-all ${useSearch ? 'bg-secondary' : 'bg-white/20'}`}
                   >
-                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${useSearch ? 'left-7' : 'left-1'}`} />
+                    <div className={`absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white transition-all ${useSearch ? 'left-6' : 'left-1'}`} />
                   </button>
                 </div>
               </div>
@@ -190,7 +190,7 @@ const Studio: React.FC = () => {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe your vision with technical precision..."
-                className="w-full bg-white/10 border border-white/20 rounded-3xl px-8 py-6 text-white focus:outline-none focus:border-primary transition-all placeholder:text-slate-500 resize-none h-40 text-sm leading-relaxed"
+                className="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-all placeholder:text-slate-500 resize-none h-32 text-sm leading-relaxed"
                 required
               />
             </div>
@@ -200,13 +200,13 @@ const Studio: React.FC = () => {
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] ml-1">Aesthetic Preset</label>
               <div className="grid grid-cols-3 gap-3">
                 {STYLE_PRESETS.map(preset => (
-                  <button 
-                    key={preset.id}
-                    onClick={() => setStylePreset(preset.id)}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${
-                      stylePreset === preset.id ? 'bg-white/20 border-white/40 text-white' : 'bg-white/[0.05] border-white/10 text-slate-400 hover:border-white/20 hover:text-white'
-                    }`}
-                  >
+                <button 
+                  key={preset.id}
+                  onClick={() => setStylePreset(preset.id)}
+                  className={`flex flex-col items-center gap-2 p-3 min-h-[44px] rounded-xl border transition-all ${
+                    stylePreset === preset.id ? 'bg-white/20 border-white/40 text-white' : 'bg-white/[0.05] border-white/10 text-slate-400 hover:border-white/20 hover:text-white'
+                  }`}
+                >
                     <span className="material-icons-outlined text-lg">{preset.icon}</span>
                     <span className="text-[8px] font-black uppercase tracking-tighter">{preset.label}</span>
                   </button>
@@ -215,13 +215,13 @@ const Studio: React.FC = () => {
             </div>
 
             {/* Aspect Ratio */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3">
               {['16:9', '1:1', '9:16'].map(ratio => (
                 <button 
                   key={ratio}
                   type="button"
                   onClick={() => setAspectRatio(ratio)}
-                  className={`py-4 rounded-2xl border text-[10px] font-black tracking-widest transition-all ${
+                  className={`py-3 min-h-[44px] rounded-xl border text-[10px] font-black tracking-widest transition-all ${
                     aspectRatio === ratio ? 'bg-white text-black' : 'bg-white/10 border-white/20 text-slate-400 hover:text-white'
                   }`}
                 >
@@ -293,7 +293,7 @@ const Studio: React.FC = () => {
                   <img 
                     src={generatedImage} 
                     alt={`AI-synthesized visual in ${stylePreset} style based on the project concept: ${prompt}`} 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0 group-hover:opacity-100 transition-all px-4">
                     <button onClick={handleSaveToHistory} disabled={saving || isSaved} className="px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] rounded-full bg-secondary text-white text-[10px] font-black uppercase tracking-widest shadow-2xl hover:brightness-110 whitespace-nowrap">

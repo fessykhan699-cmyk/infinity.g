@@ -29,7 +29,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy, index: number }> = ({ study, i
         <img 
           src={study.image} 
           alt={`Visual representation and showcase of the ${study.title} case study`} 
-          className="h-full w-full object-cover transition-transform duration-1000 md:group-hover:scale-110 md:group-hover:rotate-1"
+          className="h-full w-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:group-hover:rotate-1"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent opacity-95"></div>
       </div>
@@ -88,7 +88,7 @@ const Work: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
           {['Hisense', 'GARMIN', 'aramco', 'Aster', 'Atlantis', 'Disney+'].map((client) => (
             <div key={client} className="flex justify-center group">
-               <span className="text-xl md:text-2xl font-display font-bold text-slate-300 tracking-tighter uppercase md:group-hover:text-white md:group-hover:scale-110 transition-all duration-500">{client}</span>
+               <span className="text-lg md:text-xl font-display font-bold text-slate-300 tracking-tighter uppercase md:group-hover:text-white md:group-hover:scale-110 transition-all duration-500">{client}</span>
             </div>
           ))}
         </div>

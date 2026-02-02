@@ -15,8 +15,8 @@
   --tilt-y: 0deg;
   
   /* Animation Config */
-  --reveal-distance: 30px;
-  --reveal-duration: 1s;
+  --reveal-distance: 20px;
+  --reveal-duration: 0.7s;
 }
 
 html {
@@ -95,7 +95,7 @@ body {
 [data-reveal="scale"] { transform: scale(0.95); }
 [data-reveal="fade-slow"] { 
   transform: none; 
-  transition: opacity 2s var(--ease-expo); 
+  transition: opacity 0.8s var(--ease-expo); 
 }
 
 [data-reveal].is-visible {
@@ -112,7 +112,7 @@ body {
     translateY(calc(var(--p) * 10px))
     rotateX(var(--tilt-x))
     rotateY(var(--tilt-y));
-  filter: blur(calc(var(--p) * 3.5px)) brightness(calc(1 - (var(--p) * 0.07)));
+filter: blur(calc(var(--p) * 2.4px)) brightness(calc(1 - (var(--p) * 0.05)));
   opacity: calc(1 - (var(--p) * 0.5));
 }
 
@@ -124,7 +124,7 @@ body {
       translateY(calc(var(--p) * 15px))
       rotateX(var(--tilt-x))
       rotateY(var(--tilt-y));
-    filter: blur(calc(var(--p) * 7px)) brightness(calc(1 - (var(--p) * 0.1)));
+filter: blur(calc(var(--p) * 4.8px)) brightness(calc(1 - (var(--p) * 0.07)));
   }
 }
 
@@ -152,8 +152,8 @@ body {
     background: rgba(30, 27, 75, 0.6); 
     border-color: rgba(99, 102, 241, 0.3);
     box-shadow: 
-      0 40px 100px -30px rgba(0, 0, 0, 0.8),
-      0 0 40px -10px rgba(99, 102, 241, 0.2);
+      0 25px 60px -30px rgba(0, 0, 0, 0.7),
+      0 0 24px -12px rgba(99, 102, 241, 0.18);
   }
 }
 
@@ -225,7 +225,7 @@ body {
   z-index: -1;
   pointer-events: none;
   opacity: 0.15;
-  filter: blur(4px);
+  filter: blur(3px);
   transform: translateY(calc(var(--scroll-y, 0) * var(--speed, 0.1) * -1.2px)) scale(1.03);
 }
 

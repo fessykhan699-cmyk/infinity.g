@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
             </ScrollReveal>
           </div>
 
-          <ScrollReveal direction="scale" delay={1000} className="relative hidden lg:flex justify-end">
+          <ScrollReveal direction="up" delay={1000} className="relative hidden lg:flex justify-end">
             <div 
               className="relative w-full max-w-md glass-card p-1 rounded-[3rem] lg:rounded-[4rem] shadow-2xl transition-transform duration-500 ease-out border-white/10 reactive-glass parallax-layer" 
               style={{ '--speed': '0.1' } as React.CSSProperties}
@@ -97,17 +97,17 @@ const Hero: React.FC = () => {
                     <div className="h-1.5 w-32 bg-white/10 rounded-full"></div>
                   </div>
                   
-                  <div className="space-y-8">
-                     <div className="h-2.5 bg-white/20 rounded-full w-3/4 animate-pulse"></div>
-                     <div className="h-56 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[3rem] border border-white/10 flex items-center justify-center relative group overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.3)_0%,transparent_75%)] group-hover:scale-150 transition-transform duration-1000"></div>
-                        <span className="material-symbols-outlined text-8xl text-primary/80 animate-bounce">auto_awesome</span>
-                     </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="h-20 bg-white/10 rounded-3xl border border-white/10"></div>
-                    <div className="h-20 bg-white/10 rounded-3xl border border-white/10"></div>
+                   <div className="space-y-6">
+                      <div className="h-2 bg-white/20 rounded-full w-3/4 animate-pulse"></div>
+                      <div className="h-40 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[2.5rem] border border-white/10 flex items-center justify-center relative group overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.3)_0%,transparent_75%)] group-hover:scale-150 transition-transform duration-700"></div>
+                        <span className="material-symbols-outlined text-7xl text-primary/80 animate-bounce">auto_awesome</span>
+                      </div>
+                   </div>
+                   
+                   <div className="grid grid-cols-2 gap-4">
+                    <div className="h-16 bg-white/10 rounded-2xl border border-white/10"></div>
+                    <div className="h-16 bg-white/10 rounded-2xl border border-white/10"></div>
                   </div>
                </div>
             </div>
