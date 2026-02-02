@@ -194,7 +194,7 @@ const DynamicBackgroundVideo: React.FC = () => {
           onMouseLeave={() => setIsHovered(false)}
         >
           <div className={`glass-card flex items-center gap-3 px-3 md:px-4 py-3 rounded-full transition-all duration-700 ease-expo border-white/10 ${
-            isHovered ? 'w-40 md:w-48 bg-white/10 opacity-100 backdrop-blur-2xl' : 'w-10 md:w-12 bg-white/5 opacity-30 md:opacity-40 backdrop-blur-md'
+            isHovered ? 'w-40 md:w-48 bg-white/10 opacity-100 backdrop-blur-lg' : 'w-10 md:w-12 bg-white/5 opacity-30 md:opacity-40 backdrop-blur-sm'
           } overflow-hidden`}>
             
             <button 
