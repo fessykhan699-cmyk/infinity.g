@@ -145,6 +145,7 @@ const App: React.FC = () => {
     let mutationFrame: number | null = null;
     let mutationTimeout: ReturnType<typeof window.setTimeout> | null = null;
     let resizeTimeout: ReturnType<typeof window.setTimeout> | null = null;
+    let initFrame: number | null = null;
     let elements: HTMLElement[] = [];
     let viewportHeight = window.innerHeight;
     let center = viewportHeight / 2;
@@ -158,9 +159,12 @@ const App: React.FC = () => {
     };
 
     const updateElements = (force = false) => {
-      if (force || elements.length === 0) {
-        elements = queryElements();
+      const currentElements = queryElements();
+      if (force || elements.length === 0 || currentElements.length !== elements.length) {
+        elements = currentElements;
+        return;
       }
+      elements = elements.filter((element) => element.isConnected);
     };
 
     const updateScroll = () => {
@@ -216,7 +220,7 @@ const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
-    window.requestAnimationFrame(() => {
+    initFrame = window.requestAnimationFrame(() => {
       updateViewport();
       const observerTarget = document.querySelector('main') ?? document.documentElement;
       observer.observe(observerTarget, { childList: true, subtree: true });
@@ -228,6 +232,9 @@ const App: React.FC = () => {
       observer.disconnect();
       if (animationFrame !== null) {
         window.cancelAnimationFrame(animationFrame);
+      }
+      if (initFrame !== null) {
+        window.cancelAnimationFrame(initFrame);
       }
       if (mutationFrame !== null) {
         window.cancelAnimationFrame(mutationFrame);
