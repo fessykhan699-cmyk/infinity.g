@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Infinity Digital Enterprise",
+  "description": "Enterprise-grade Next.js portfolio with MongoDB integration and AI-powered project strategy generation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

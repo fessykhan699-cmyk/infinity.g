@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 5 5 8;
+  --primary: 99 102 241;
+  --secondary: 6 182 212;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --scroll-p: 0;
+  --scroll-y: 0;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  
+  /* Animation Config */
+  --reveal-distance: 30px;
+  --reveal-duration: 1s;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: rgb(var(--background));
+}
+
+body {
+  overflow-x: hidden;
+  background-color: rgb(var(--background));
+  color: #f3f4f6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* LOGO ANIMATIONS */
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.8)); }
+  50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 1)); }
+}
+
+@keyframes logo-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logo-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.neural-logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s var(--ease-expo);
+}
+
+.neural-logo-container::before {
+  content: '';
+  absolute: inset -2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+  background-size: 200% auto;
+  border-radius: 9999px;
+  z-index: -1;
+  animation: logo-shimmer 3s linear infinite;
+  opacity: 0.5;
+}
+
+.neural-logo-icon {
+  color: white;
+  animation: logo-pulse 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.neural-logo-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.4), transparent 70%);
+  animation: logo-pulse 4s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+/* REVEAL PRIMITIVES */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity var(--reveal-duration) var(--ease-expo), transform var(--reveal-duration) var(--ease-expo), filter var(--reveal-duration) var(--ease-expo);
+  will-change: transform, opacity;
+}
+
+[data-reveal="up"] { transform: translateY(var(--reveal-distance)); }
+[data-reveal="down"] { transform: translateY(calc(var(--reveal-distance) * -1)); }
+[data-reveal="left"] { transform: translateX(var(--reveal-distance)); }
+[data-reveal="right"] { transform: translateX(calc(var(--reveal-distance) * -1)); }
+[data-reveal="scale"] { transform: scale(0.95); }
+[data-reveal="fade-slow"] { 
+  transform: none; 
+  transition: opacity 2s var(--ease-expo); 
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.reactive-glass {
+  --p: var(--scroll-p, 0);
+  transition: transform 0.6s var(--ease-expo), filter 0.6s var(--ease-expo), opacity 0.6s var(--ease-expo);
+  transform: 
+    perspective(1000px)
+    scale(calc(1 - (var(--p) * 0.025))) 
+    translateY(calc(var(--p) * 10px))
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+  filter: blur(calc(var(--p) * 6px)) brightness(calc(1 - (var(--p) * 0.07)));
+  opacity: calc(1 - (var(--p) * 0.5));
+}
+
+@media (min-width: 1024px) {
+  .reactive-glass {
+    transform: 
+      perspective(1000px)
+      scale(calc(1 - (var(--p) * 0.05))) 
+      translateY(calc(var(--p) * 15px))
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+    filter: blur(calc(var(--p) * 12px)) brightness(calc(1 - (var(--p) * 0.1)));
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: 
+    background 0.5s var(--ease-expo), 
+    border-color 0.5s var(--ease-expo), 
+    box-shadow 0.5s var(--ease-expo);
+}
+
+@media (min-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
+  }
+  
+  .glass-card:hover {
+    background: rgba(30, 27, 75, 0.6); 
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 
+      0 40px 100px -30px rgba(0, 0, 0, 0.8),
+      0 0 40px -10px rgba(99, 102, 241, 0.2);
+  }
+}
+
+@media (hover: hover) {
+  .glass-card .spotlight {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(99, 102, 241, 0.15),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-expo);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glass-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      300px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.08),
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-expo);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .glass-card:hover .spotlight,
+  .glass-card:hover::after { 
+    opacity: 1; 
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #d8b4fe 0%, #818cf8 50%, #67e8f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: text-shimmer 8s linear infinite;
+}
+
+@keyframes text-shimmer {
+  to { background-position: 200% center; }
+}
+
+.parallax-layer {
+  will-change: transform;
+  transform: translateY(calc(var(--scroll-y, 0) * var(--speed, 0.1) * -1px));
+}
+
+.text-parallax-wrapper {
+  position: relative;
+  display: block;
+}
+
+.text-parallax-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.15;
+  filter: blur(4px);
+  transform: translateY(calc(var(--scroll-y, 0) * var(--speed, 0.1) * -1.2px)) scale(1.03);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #050508; }
+::-webkit-scrollbar-thumb { background: #2e2e3d; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #6366f1; }
