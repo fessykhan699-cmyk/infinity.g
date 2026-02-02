@@ -9,9 +9,9 @@ import AdminVideoUploader from '../components/AdminVideoUploader';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SERVICES } from '../constants';
 
+const TILT_SENSITIVITY = 35;
+
 const ServicesSection = () => {
-  const TILT_SENSITIVITY = 35;
-  
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     // Disable tilt on non-pointer devices via CSS media query logic or simple check
     if (window.matchMedia('(pointer: coarse)').matches) return;
