@@ -34,17 +34,17 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-24 md:py-48 px-6 max-w-7xl mx-auto">
-      <ScrollReveal direction="up" className="mb-32">
-        <h2 className="text-5xl md:text-8xl font-display font-bold text-white mb-8 tracking-tighter">
+    <section id="services" className="py-24 md:py-48 px-4 max-w-6xl mx-auto">
+      <ScrollReveal direction="up" className="mb-20 md:mb-24">
+        <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 tracking-tighter">
           Elite <span className="gradient-text">Offerings</span>
         </h2>
-        <p className="text-slate-400 text-xl md:text-3xl font-light max-w-3xl leading-relaxed">
+        <p className="text-slate-400 text-base md:text-lg lg:text-xl font-light max-w-3xl leading-relaxed">
           Visionary design and world-class engineering deployed as discrete, high-impact enterprise solutions.
         </p>
       </ScrollReveal>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {SERVICES.map((service, i) => {
           const titleParts = service.title.split(' — ');
           const gigLabel = titleParts[0];
@@ -58,27 +58,27 @@ const ServicesSection = () => {
               <div 
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="reactive-glass glass-card group p-12 md:p-16 rounded-[4rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out"
+                className="reactive-glass glass-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <div className="spotlight"></div>
                 
                 <div className="relative z-10 flex flex-col h-full transition-all duration-500 ease-out group-hover:translate-z-[50px] group-hover:-translate-y-4">
-                  <div className="flex justify-between items-start mb-16">
-                    <div className={`w-16 h-1.5 bg-gradient-to-r ${service.gradient} rounded-full transition-all group-hover:w-32 duration-700 opacity-60 group-hover:opacity-100`}></div>
+                  <div className="flex justify-between items-start mb-10">
+                    <div className={`w-12 h-1.5 bg-gradient-to-r ${service.gradient} rounded-full transition-all group-hover:w-24 duration-700 opacity-60 group-hover:opacity-100`}></div>
                     <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 group-hover:text-primary transition-colors duration-500">{gigLabel}</span>
                   </div>
                   
-                  <h3 className="text-3xl md:text-5xl font-display font-light text-white mb-10 leading-[1.1] transition-all duration-500 group-hover:text-white">
+                  <h3 className="text-2xl md:text-3xl font-display font-light text-white mb-6 leading-[1.1] transition-all duration-500 group-hover:text-white">
                      {firstPart} <br/><span className="font-bold group-hover:gradient-text block mt-1">{lastWord}</span>
                   </h3>
                   
-                  <p className="text-slate-500 text-lg leading-relaxed mb-16 font-light flex-grow transition-colors duration-500 group-hover:text-slate-300">
+                  <p className="text-slate-500 text-base leading-relaxed mb-10 font-light flex-grow transition-colors duration-500 group-hover:text-slate-300">
                     {service.description}
                   </p>
                   
                   <div className="mt-auto">
-                    <a href="#contact" className="inline-flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500">
+                    <a href="#contact" className="inline-flex items-center gap-6 py-3 min-h-[44px] text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500">
                       Inquire
                       <span className="material-icons-outlined text-lg group-hover:translate-x-6 transition-transform text-primary group-hover:scale-125">east</span>
                     </a>
@@ -95,35 +95,35 @@ const ServicesSection = () => {
 
 const CapabilitiesSection = () => (
   <section id="capabilities" className="py-24 md:py-48 relative overflow-hidden">
-    <div className="max-w-7xl mx-auto px-6 relative z-10">
-      <div className="flex flex-col lg:flex-row gap-32 items-center">
-        <ScrollReveal direction="left" className="w-full lg:w-1/2 space-y-16">
-          <h2 className="text-6xl md:text-9xl font-display font-bold text-white leading-[1] tracking-tighter">
+    <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="flex flex-col lg:flex-row gap-20 items-center">
+        <ScrollReveal direction="left" className="w-full lg:w-1/2 space-y-10">
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-white leading-[1.05] tracking-tighter">
             Architectural <br/><span className="gradient-text">Mastery</span>
           </h2>
-          <p className="text-slate-400 font-light leading-relaxed text-2xl md:text-4xl max-w-2xl">
+          <p className="text-slate-400 font-light leading-relaxed text-base md:text-lg lg:text-xl max-w-xl">
             Treating every digital project as a bespoke piece of physical art.
           </p>
-          <div className="flex gap-20 pt-12 border-t border-white/5">
+          <div className="flex gap-12 pt-8 border-t border-white/5">
             <div>
-              <div className="text-6xl md:text-8xl font-bold text-white tracking-tighter">15+</div>
+              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">15+</div>
               <div className="text-[10px] uppercase tracking-[0.5em] text-slate-600 font-black mt-2">Active Partners</div>
             </div>
             <div>
-              <div className="text-6xl md:text-8xl font-bold text-white tracking-tighter">100%</div>
+              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">100%</div>
               <div className="text-[10px] uppercase tracking-[0.5em] text-slate-600 font-black mt-2">Retention</div>
             </div>
           </div>
         </ScrollReveal>
         
         <ScrollReveal direction="right" className="w-full lg:w-1/2 flex justify-center">
-          <div className="w-96 h-96 sm:w-[36rem] sm:h-[36rem] glass-card rounded-full flex items-center justify-center p-20 relative group transition-all duration-1000">
-             <div className="absolute inset-0 bg-primary/20 rounded-full blur-[120px] opacity-0 group-hover:opacity-70 transition-opacity duration-1000"></div>
+          <div className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card rounded-full flex items-center justify-center p-12 relative group transition-all duration-700">
+             <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
              <div className="absolute inset-8 border border-white/5 rounded-full animate-[spin_80s_linear_infinite]"></div>
              <div className="absolute inset-16 border border-white/5 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
-             <div className="text-center z-10 transition-transform duration-700 group-hover:scale-110">
-               <span className="material-symbols-outlined text-9xl text-primary animate-pulse mb-10 block">token</span>
-               <h4 className="text-4xl font-bold text-white uppercase tracking-[0.6em] mb-4">Core</h4>
+             <div className="text-center z-10 transition-transform duration-700 group-hover:scale-105">
+               <span className="material-symbols-outlined text-7xl text-primary animate-pulse mb-6 block">token</span>
+               <h4 className="text-3xl font-bold text-white uppercase tracking-[0.6em] mb-3">Core</h4>
                <p className="text-[10px] text-slate-600 uppercase tracking-widest font-black">Strategic Center</p>
              </div>
           </div>
