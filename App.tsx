@@ -173,8 +173,9 @@ const App: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
     observer.observe(document.body, { childList: true, subtree: true });
+    updateElements();
     handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
