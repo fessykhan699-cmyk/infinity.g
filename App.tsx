@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import MainLayout from './layouts/MainLayout';
 import Hero from './components/Hero';
 import Work from './components/Work';
@@ -8,6 +9,7 @@ import Studio from './components/Studio';
 import Contact from './components/Contact';
 import AdminVideoUploader from './components/AdminVideoUploader';
 import { ScrollReveal, AnimatedCounter } from './components/ScrollReveal';
+import { MotionReveal, StaggerContainer, Magnetic } from './components/MotionComponents';
 import { SERVICES } from './constants';
 
 const MAX_DISTANCE_FACTOR = 0.4;
@@ -145,16 +147,31 @@ const ServicesSection = () => {
 
   return (
     <section id="services" className="py-24 md:py-48 px-4 max-w-6xl mx-auto">
-      <ScrollReveal direction="up" className="mb-20 md:mb-24">
+      <MotionReveal variant="fadeUp" className="mb-20 md:mb-24">
         <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 tracking-tighter">
           Elite <span className="gradient-text">Offerings</span>
         </h2>
         <p className="text-slate-400 text-base md:text-lg lg:text-xl font-light max-w-3xl leading-relaxed">
           Visionary design and world-class engineering deployed as discrete, high-impact enterprise solutions.
         </p>
-      </ScrollReveal>
+      </MotionReveal>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+      <motion.div 
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.15,
+              delayChildren: 0.2,
+            },
+          },
+        }}
+      >
         {SERVICES.map((service, serviceIndex) => {
           const titleParts = service.title.split(' — ');
           const gigLabel = titleParts[0];
@@ -164,18 +181,41 @@ const ServicesSection = () => {
           const lastWord = nameWords[nameWords.length - 1];
 
           return (
-            <ScrollReveal key={serviceIndex} direction="up" delay={serviceIndex * 100}>
-              <div
+            <motion.div
+              key={serviceIndex}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.95 },
+                visible: { 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  transition: {
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                  },
+                },
+              }}
+            >
+              <motion.div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="reactive-glass glass-card widget-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out touch-luminous"
+                className="reactive-glass glass-card widget-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default touch-luminous"
                 style={{ transformStyle: 'preserve-3d' }}
+                whileHover={{ 
+                  y: -8,
+                  transition: { type: 'spring', stiffness: 300, damping: 20 }
+                }}
               >
                 <div className="spotlight"></div>
 
                 <div className="relative z-10 flex flex-col h-full transition-all duration-500 ease-out group-hover:translate-z-[50px] group-hover:-translate-y-4">
                   <div className="flex justify-between items-start mb-10">
-                    <div className={`w-12 h-1.5 bg-gradient-to-r ${service.gradient} rounded-full transition-all group-hover:w-24 duration-700 opacity-60 group-hover:opacity-100`}></div>
+                    <motion.div 
+                      className={`h-1.5 bg-gradient-to-r ${service.gradient} rounded-full opacity-60 group-hover:opacity-100`}
+                      initial={{ width: 48 }}
+                      whileHover={{ width: 96 }}
+                      transition={{ duration: 0.7 }}
+                    />
                     <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 group-hover:text-primary transition-colors duration-500">{gigLabel}</span>
                   </div>
 
@@ -190,15 +230,21 @@ const ServicesSection = () => {
                   <div className="mt-auto">
                     <a href="#contact" className="inline-flex items-center gap-6 py-3 min-h-[44px] text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500 precision-target">
                       Inquire
-                      <span className="material-icons-outlined text-lg group-hover:translate-x-6 transition-transform text-primary group-hover:scale-125 icon-bounce">east</span>
+                      <motion.span 
+                        className="material-icons-outlined text-lg text-primary"
+                        whileHover={{ x: 24, scale: 1.25 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                      >
+                        east
+                      </motion.span>
                     </a>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
+              </motion.div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 };
@@ -208,14 +254,20 @@ const CapabilitiesSection = () => (
   <section id="capabilities" className="py-24 md:py-48 relative overflow-hidden">
     <div className="max-w-6xl mx-auto px-4 relative z-10">
       <div className="flex flex-col lg:flex-row gap-20 items-center">
-        <ScrollReveal direction="left" className="w-full lg:w-1/2 space-y-10">
+        <MotionReveal variant="slideLeft" className="w-full lg:w-1/2 space-y-10">
           <h2 className="text-4xl md:text-6xl font-display font-bold text-white leading-[1.05] tracking-tighter">
             Architectural <br/><span className="gradient-text">Mastery</span>
           </h2>
           <p className="text-slate-400 font-light leading-relaxed text-base md:text-lg lg:text-xl max-w-xl">
             Treating every digital project as a bespoke piece of physical art.
           </p>
-          <div className="flex gap-12 pt-8 border-t border-white/5">
+          <motion.div 
+            className="flex gap-12 pt-8 border-t border-white/5"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+          >
             <div>
               <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
                 <AnimatedCounter target="15+" duration={2000} />
@@ -228,21 +280,49 @@ const CapabilitiesSection = () => (
               </div>
               <div className="text-[10px] uppercase tracking-[0.5em] text-slate-600 font-black mt-2">Retention</div>
             </div>
-          </div>
-        </ScrollReveal>
+          </motion.div>
+        </MotionReveal>
 
-        <ScrollReveal direction="right" className="w-full lg:w-1/2 flex justify-center">
-          <div className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card widget-card rounded-full flex items-center justify-center p-12 relative group transition-all duration-700 light-field avatar-3d">
-             <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
+        <MotionReveal variant="slideRight" className="w-full lg:w-1/2 flex justify-center">
+          <motion.div 
+            className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card widget-card rounded-full flex items-center justify-center p-12 relative group light-field avatar-3d"
+            whileHover={{ 
+              scale: 1.05,
+              rotate: 5,
+              transition: { type: 'spring', stiffness: 300, damping: 20 }
+            }}
+          >
+             <motion.div 
+               className="absolute inset-0 bg-primary/20 rounded-full blur-[60px]"
+               initial={{ opacity: 0 }}
+               whileHover={{ opacity: 0.7 }}
+               transition={{ duration: 0.7 }}
+             />
              <div className="absolute inset-8 border border-white/5 rounded-full trinity-core"></div>
              <div className="absolute inset-16 border border-white/5 rounded-full trinity-core"></div>
-             <div className="text-center z-10 transition-transform duration-700 group-hover:scale-105">
-               <span className="material-symbols-outlined text-7xl text-primary animate-pulse mb-6 block feature-showcase">token</span>
+             <motion.div 
+               className="text-center z-10"
+               whileHover={{ scale: 1.05 }}
+               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+             >
+               <motion.span 
+                 className="material-symbols-outlined text-7xl text-primary mb-6 block feature-showcase"
+                 animate={{ 
+                   opacity: [0.6, 1, 0.6],
+                 }}
+                 transition={{
+                   duration: 2,
+                   repeat: Infinity,
+                   ease: 'easeInOut',
+                 }}
+               >
+                 token
+               </motion.span>
                <h4 className="text-3xl font-bold text-white uppercase tracking-[0.6em] mb-3">Core</h4>
                <p className="text-[10px] text-slate-600 uppercase tracking-widest font-black">Strategic Center</p>
-             </div>
-          </div>
-        </ScrollReveal>
+             </motion.div>
+          </motion.div>
+        </MotionReveal>
       </div>
     </div>
   </section>

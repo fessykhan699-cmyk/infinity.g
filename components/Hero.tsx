@@ -1,6 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ScrollReveal, SplitText } from './ScrollReveal';
+import { MotionReveal, Magnetic, Parallax } from './MotionComponents';
+import { staggerContainerVariants, fadeInUpVariants } from '../lib/motion';
 
 const TYPING_PHRASES = [
   'cinematic clarity.',
@@ -41,30 +44,76 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-[100dvh] flex flex-col justify-center px-4 sm:px-6 pt-20 sm:pt-24 pb-12 overflow-hidden bg-transparent">
-      {/* Floating Particles */}
+      {/* Floating Particles with Motion */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         {Array.from({ length: 20 }).map((_, i) => (
-          <div
+          <motion.div
             key={i}
             className="particle"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ 
+              opacity: [0, 0.6, 0],
+              y: [-100, -window.innerHeight],
+            }}
+            transition={{
+              duration: 12 + Math.random() * 18,
+              repeat: Infinity,
+              delay: Math.random() * 15,
+              ease: 'linear',
+            }}
             style={{
               left: `${Math.random() * 100}%`,
-              '--duration': `${12 + Math.random() * 18}s`,
-              '--drift': `${(Math.random() - 0.5) * 100}px`,
-              '--max-opacity': `${0.2 + Math.random() * 0.4}`,
-              animationDelay: `${Math.random() * 15}s`,
               width: `${1 + Math.random() * 2}px`,
               height: `${1 + Math.random() * 2}px`,
-            } as React.CSSProperties}
+            }}
           />
         ))}
       </div>
 
-      {/* Morphing gradient blobs */}
+      {/* Morphing gradient blobs with parallax */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        <div className="morph-blob w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/5 top-[10%] left-[10%]" />
-        <div className="morph-blob w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-secondary/5 top-[50%] right-[5%]" />
-        <div className="morph-blob w-[250px] md:w-[350px] h-[250px] md:h-[350px] bg-purple-500/5 bottom-[10%] left-[30%]" />
+        <Parallax speed={0.3}>
+          <motion.div 
+            className="morph-blob w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/5 top-[10%] left-[10%]"
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 90, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </Parallax>
+        <Parallax speed={0.5}>
+          <motion.div 
+            className="morph-blob w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-secondary/5 top-[50%] right-[5%]"
+            animate={{
+              scale: [1, 1.3, 1],
+              rotate: [0, -90, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </Parallax>
+        <Parallax speed={0.2}>
+          <motion.div 
+            className="morph-blob w-[250px] md:w-[350px] h-[250px] md:h-[350px] bg-purple-500/5 bottom-[10%] left-[30%]"
+            animate={{
+              scale: [1, 1.15, 1],
+              rotate: [0, 60, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </Parallax>
       </div>
 
       {/* Background Depth Accent */}
@@ -134,17 +183,51 @@ const Hero: React.FC = () => {
               </ScrollReveal>
             </div>
 
-            <ScrollReveal direction="up" delay={1500} className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-4 md:pt-8">
-              <a href="#contact" className="magnetic-btn relative group px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 min-h-[44px] flex items-center justify-center rounded-full bg-primary text-white font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_60px_-10px_rgba(99,102,241,0.5)] text-center">
-                <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                  Initiate Project <span className="material-icons-outlined text-sm group-hover:translate-x-3 transition-transform">arrow_forward</span>
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              </a>
-              <a href="#work" className="magnetic-btn px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 min-h-[44px] flex items-center justify-center rounded-full border border-white/20 text-white font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase hover:bg-white/10 transition-all backdrop-blur-md group text-center">
-                View Showcase <span className="material-icons-outlined text-xs ml-2 opacity-70 group-hover:opacity-100 transition-opacity">visibility</span>
-              </a>
-            </ScrollReveal>
+            <MotionReveal variant="fadeUp" delay={1.5} className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-4 md:pt-8">
+              <Magnetic strength={0.3}>
+                <motion.a 
+                  href="#contact" 
+                  className="relative group px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 min-h-[44px] flex items-center justify-center rounded-full bg-primary text-white font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase overflow-hidden text-center"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                    Initiate Project 
+                    <motion.span 
+                      className="material-icons-outlined text-sm"
+                      whileHover={{ x: 8 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                    >
+                      arrow_forward
+                    </motion.span>
+                  </span>
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-primary"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </motion.a>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <motion.a 
+                  href="#work" 
+                  className="px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 min-h-[44px] flex items-center justify-center rounded-full border border-white/20 text-white font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase backdrop-blur-md group text-center"
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                >
+                  View Showcase 
+                  <motion.span 
+                    className="material-icons-outlined text-xs ml-2 opacity-70"
+                    whileHover={{ opacity: 1 }}
+                  >
+                    visibility
+                  </motion.span>
+                </motion.a>
+              </Magnetic>
+            </MotionReveal>
           </div>
 
           <ScrollReveal direction="scale" delay={1000} className="relative hidden lg:flex justify-end">
