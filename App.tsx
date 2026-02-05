@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import MainLayout from './layouts/MainLayout';
 import Hero from './components/Hero';
 import Work from './components/Work';
@@ -19,25 +19,81 @@ const RESIZE_DEBOUNCE_MS = 150;
 const MUTATION_DEBOUNCE_MS = 120;
 const TILT_SENSITIVITY = 30;
 
-// ─── Preloader ──────────────────────────────────────────────
+// ─── Preloader with Cinematic Entrance ─────────────────────
 const Preloader: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 2200);
-    return () => clearTimeout(timer);
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return prev + Math.random() * 15;
+      });
+    }, 100);
+
+    const timer = setTimeout(() => {
+      setProgress(100);
+      setTimeout(() => setLoaded(true), 400);
+    }, 2000);
+
+    return () => {
+      clearInterval(progressInterval);
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <div className={`preloader ${loaded ? 'loaded' : ''}`}>
-      <div className="preloader-logo">
-        <span className="material-icons-outlined text-3xl text-white relative z-10">all_inclusive</span>
-      </div>
+    <motion.div 
+      className="preloader"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: loaded ? 0 : 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      style={{ pointerEvents: loaded ? 'none' : 'auto' }}
+    >
+      <motion.div 
+        className="preloader-logo"
+        initial={{ scale: 0, rotate: -180 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ 
+          duration: 1.2, 
+          ease: [0.34, 1.56, 0.64, 1],
+          delay: 0.2 
+        }}
+      >
+        <motion.span 
+          className="material-icons-outlined text-3xl text-white relative z-10"
+          animate={{ rotate: 360 }}
+          transition={{ 
+            duration: 2, 
+            repeat: loaded ? 0 : Infinity, 
+            ease: 'linear' 
+          }}
+        >
+          all_inclusive
+        </motion.span>
+      </motion.div>
       <div className="preloader-bar">
-        <div className="preloader-bar-fill" />
+        <motion.div 
+          className="preloader-bar-fill"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: progress / 100 }}
+          style={{ transformOrigin: 'left' }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        />
       </div>
-      <div className="preloader-text">Loading Experience</div>
-    </div>
+      <motion.div 
+        className="preloader-text"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+      >
+        Loading Experience {Math.min(Math.round(progress), 100)}%
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -86,37 +142,18 @@ const MagneticCursor: React.FC = () => {
   );
 };
 
-// ─── Scroll Progress Bar ────────────────────────────────────
+// ─── Enhanced Scroll Progress with Smooth Animation ────────
 const ScrollProgress: React.FC = () => {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    let raf: number | null = null;
-
-    const update = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? scrollTop / docHeight : 0);
-      raf = null;
-    };
-
-    const handleScroll = () => {
-      if (raf === null) {
-        raf = requestAnimationFrame(update);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (raf !== null) cancelAnimationFrame(raf);
-    };
-  }, []);
+  const { scrollYProgress } = useScroll();
 
   return (
-    <div
+    <motion.div
       className="scroll-progress"
-      style={{ transform: `scaleX(${progress})`, width: '100%' }}
+      style={{ 
+        scaleX: scrollYProgress,
+        transformOrigin: 'left',
+        width: '100%'
+      }}
     />
   );
 };
