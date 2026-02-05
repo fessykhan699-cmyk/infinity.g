@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainLayout from './layouts/MainLayout';
 import Hero from './components/Hero';
 import Work from './components/Work';
@@ -7,7 +7,7 @@ import Advisor from './components/Advisor';
 import Studio from './components/Studio';
 import Contact from './components/Contact';
 import AdminVideoUploader from './components/AdminVideoUploader';
-import { ScrollReveal } from './components/ScrollReveal';
+import { ScrollReveal, AnimatedCounter } from './components/ScrollReveal';
 import { SERVICES } from './constants';
 
 const MAX_DISTANCE_FACTOR = 0.4;
@@ -17,6 +17,109 @@ const RESIZE_DEBOUNCE_MS = 150;
 const MUTATION_DEBOUNCE_MS = 120;
 const TILT_SENSITIVITY = 30;
 
+// ─── Preloader ──────────────────────────────────────────────
+const Preloader: React.FC = () => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className={`preloader ${loaded ? 'loaded' : ''}`}>
+      <div className="preloader-logo">
+        <span className="material-icons-outlined text-3xl text-white relative z-10">all_inclusive</span>
+      </div>
+      <div className="preloader-bar">
+        <div className="preloader-bar-fill" />
+      </div>
+      <div className="preloader-text">Loading Experience</div>
+    </div>
+  );
+};
+
+// ─── Magnetic Cursor ────────────────────────────────────────
+const MagneticCursor: React.FC = () => {
+  const [active, setActive] = useState(false);
+  const [hovering, setHovering] = useState(false);
+
+  useEffect(() => {
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice) return;
+
+    const handleMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+      if (!active) setActive(true);
+    };
+
+    const handleOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest('a, button, input, textarea, select, [role="button"], .magnetic-btn, .glass-card');
+      setHovering(!!isInteractive);
+    };
+
+    const handleLeave = () => {
+      setActive(false);
+    };
+
+    window.addEventListener('mousemove', handleMove, { passive: true });
+    window.addEventListener('mouseover', handleOver, { passive: true });
+    document.addEventListener('mouseleave', handleLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseover', handleOver);
+      document.removeEventListener('mouseleave', handleLeave);
+    };
+  }, [active]);
+
+  return (
+    <>
+      <div className={`cursor-glow ${active ? 'active' : ''}`} />
+      <div className={`cursor-dot ${active ? 'active' : ''} ${hovering ? 'hovering' : ''}`} />
+      <div className={`cursor-ring ${active ? 'active' : ''} ${hovering ? 'hovering' : ''}`} />
+    </>
+  );
+};
+
+// ─── Scroll Progress Bar ────────────────────────────────────
+const ScrollProgress: React.FC = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let raf: number | null = null;
+
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? scrollTop / docHeight : 0);
+      raf = null;
+    };
+
+    const handleScroll = () => {
+      if (raf === null) {
+        raf = requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (raf !== null) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <div
+      className="scroll-progress"
+      style={{ transform: `scaleX(${progress})`, width: '100%' }}
+    />
+  );
+};
+
+// ─── Services Section ───────────────────────────────────────
 const ServicesSection = () => {
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const card = event.currentTarget;
@@ -25,9 +128,9 @@ const ServicesSection = () => {
     const mouseY = event.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = (mouseY - centerY) / TILT_SENSITIVITY; 
-    const rotateY = (centerX - mouseX) / TILT_SENSITIVITY; 
-    
+    const rotateX = (mouseY - centerY) / TILT_SENSITIVITY;
+    const rotateY = (centerX - mouseX) / TILT_SENSITIVITY;
+
     card.style.setProperty('--mouse-x', `${mouseX}px`);
     card.style.setProperty('--mouse-y', `${mouseY}px`);
     card.style.setProperty('--tilt-x', `${-rotateX}deg`);
@@ -62,28 +165,28 @@ const ServicesSection = () => {
 
           return (
             <ScrollReveal key={serviceIndex} direction="up" delay={serviceIndex * 100}>
-              <div 
+              <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 className="reactive-glass glass-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <div className="spotlight"></div>
-                
+
                 <div className="relative z-10 flex flex-col h-full transition-all duration-500 ease-out group-hover:translate-z-[50px] group-hover:-translate-y-4">
                   <div className="flex justify-between items-start mb-10">
                     <div className={`w-12 h-1.5 bg-gradient-to-r ${service.gradient} rounded-full transition-all group-hover:w-24 duration-700 opacity-60 group-hover:opacity-100`}></div>
                     <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 group-hover:text-primary transition-colors duration-500">{gigLabel}</span>
                   </div>
-                  
+
                   <h3 className="text-2xl md:text-3xl font-display font-light text-white mb-6 leading-[1.1] transition-all duration-500 group-hover:text-white">
                      {firstPart} <br/><span className="font-bold group-hover:gradient-text block mt-1">{lastWord}</span>
                   </h3>
-                  
+
                   <p className="text-slate-500 text-base leading-relaxed mb-10 font-light flex-grow transition-colors duration-500 group-hover:text-slate-300">
                     {service.description}
                   </p>
-                  
+
                   <div className="mt-auto">
                     <a href="#contact" className="inline-flex items-center gap-6 py-3 min-h-[44px] text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500">
                       Inquire
@@ -100,6 +203,7 @@ const ServicesSection = () => {
   );
 };
 
+// ─── Capabilities Section with Animated Counters ────────────
 const CapabilitiesSection = () => (
   <section id="capabilities" className="py-24 md:py-48 relative overflow-hidden">
     <div className="max-w-6xl mx-auto px-4 relative z-10">
@@ -113,16 +217,20 @@ const CapabilitiesSection = () => (
           </p>
           <div className="flex gap-12 pt-8 border-t border-white/5">
             <div>
-              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">15+</div>
+              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
+                <AnimatedCounter target="15+" duration={2000} />
+              </div>
               <div className="text-[10px] uppercase tracking-[0.5em] text-slate-600 font-black mt-2">Active Partners</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">100%</div>
+              <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
+                <AnimatedCounter target="100%" duration={2500} />
+              </div>
               <div className="text-[10px] uppercase tracking-[0.5em] text-slate-600 font-black mt-2">Retention</div>
             </div>
           </div>
         </ScrollReveal>
-        
+
         <ScrollReveal direction="right" className="w-full lg:w-1/2 flex justify-center">
           <div className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card rounded-full flex items-center justify-center p-12 relative group transition-all duration-700">
              <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
@@ -140,6 +248,7 @@ const CapabilitiesSection = () => (
   </section>
 );
 
+// ─── Main App ───────────────────────────────────────────────
 const App: React.FC = () => {
   useEffect(() => {
     let animationFrame: number | null = null;
@@ -250,16 +359,21 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <MainLayout>
-      <Hero />
-      <CapabilitiesSection />
-      <ServicesSection />
-      <Work />
-      <Advisor />
-      <Studio />
-      <Contact />
-      <AdminVideoUploader />
-    </MainLayout>
+    <>
+      <Preloader />
+      <ScrollProgress />
+      <MagneticCursor />
+      <MainLayout>
+        <Hero />
+        <CapabilitiesSection />
+        <ServicesSection />
+        <Work />
+        <Advisor />
+        <Studio />
+        <Contact />
+        <AdminVideoUploader />
+      </MainLayout>
+    </>
   );
 };
 
