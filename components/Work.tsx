@@ -1,45 +1,56 @@
 import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { CASE_STUDIES } from '../constants';
 import { CaseStudy } from '../types';
 import { ScrollReveal, AnimatedCounter } from './ScrollReveal';
+import { MotionReveal, Magnetic } from './MotionComponents';
 
 const CaseStudyCard: React.FC<{ study: CaseStudy, index: number }> = ({ study, index }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.animationDelay = `${index * 0.15}s`;
-            entry.target.classList.add('card-animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.05 }
-    );
-
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [index]);
-
   return (
-    <div ref={cardRef} className="reactive-glass group relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] glass-card transition-all duration-700 opacity-0 motion-popout widget-card">
+    <motion.div 
+      className="reactive-glass group relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] glass-card motion-popout widget-card"
+      initial={{ opacity: 0, y: 60, scale: 0.95 }}
+      whileInView={{ 
+        opacity: 1, 
+        y: 0, 
+        scale: 1,
+        transition: {
+          delay: index * 0.15,
+          duration: 0.8,
+          ease: [0.16, 1, 0.3, 1],
+        }
+      }}
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={{ 
+        y: -12,
+        transition: { type: 'spring', stiffness: 300, damping: 20 }
+      }}
+    >
       <div className="aspect-[16/10] overflow-hidden product-unveil">
-        <img
+        <motion.img
           src={study.image}
           alt={`Visual representation and showcase of the ${study.title} case study`}
-          className="h-full w-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:group-hover:rotate-1 avatar-3d"
+          className="h-full w-full object-cover avatar-3d"
+          whileHover={{ 
+            scale: 1.1,
+            rotate: 1,
+          }}
+          transition={{ duration: 0.7 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent opacity-95"></div>
       </div>
 
       <div className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-end">
-        <div className="flex flex-wrap gap-2 mb-2 sm:mb-3 md:mb-4">
+        <motion.div 
+          className="flex flex-wrap gap-2 mb-2 sm:mb-3 md:mb-4"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: index * 0.15 + 0.3 }}
+          viewport={{ once: true }}
+        >
           <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-primary/30 text-[8px] md:text-[10px] font-black text-indigo-100 border border-primary/40 uppercase tracking-[0.2em]">{study.category}</span>
           <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-white/10 text-[8px] md:text-[10px] font-black text-slate-300 border border-white/20 uppercase tracking-[0.2em]">Blueprint</span>
-        </div>
+        </motion.div>
         <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-3 lg:mb-4 leading-tight md:group-hover:text-primary transition-colors">{study.title}</h3>
         <p className="text-slate-100 text-sm md:text-base lg:text-lg mb-4 sm:mb-6 md:mb-8 lg:mb-10 line-clamp-2 font-light leading-relaxed drop-shadow-md">{study.description}</p>
 
@@ -56,7 +67,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy, index: number }> = ({ study, i
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -65,7 +76,7 @@ const CLIENTS = ['Hisense', 'GARMIN', 'aramco', 'Aster', 'Atlantis', 'Disney+'];
 const Work: React.FC = () => {
   return (
     <section id="work" className="py-16 sm:py-20 md:py-32 lg:py-40 px-4 sm:px-6 max-w-7xl mx-auto">
-      <ScrollReveal direction="blur-up" className="reactive-glass flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 md:gap-10 mb-12 sm:mb-16 md:mb-20">
+      <MotionReveal variant="blur" className="reactive-glass flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 md:gap-10 mb-12 sm:mb-16 md:mb-20">
         <div className="max-w-2xl">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-white mb-4 sm:mb-6">
             Elite <span className="gradient-text">Showcase</span>
@@ -75,10 +86,21 @@ const Work: React.FC = () => {
             From luxury brand overhauls to core enterprise systems.
           </p>
         </div>
-        <button className="magnetic-btn px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 min-h-[44px] rounded-full border border-slate-700 text-[9px] md:text-[10px] font-black tracking-[0.3em] md:tracking-[0.4em] text-slate-300 hover:text-white hover:border-white transition-all uppercase">
-          View Selected Projects
-        </button>
-      </ScrollReveal>
+        <Magnetic strength={0.2}>
+          <motion.button 
+            className="px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 min-h-[44px] rounded-full border border-slate-700 text-[9px] md:text-[10px] font-black tracking-[0.3em] md:tracking-[0.4em] text-slate-300 uppercase"
+            whileHover={{ 
+              scale: 1.05,
+              borderColor: 'rgba(255, 255, 255, 1)',
+              color: 'rgba(255, 255, 255, 1)',
+            }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          >
+            View Selected Projects
+          </motion.button>
+        </Magnetic>
+      </MotionReveal>
 
       <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
         {CASE_STUDIES.map((study, idx) => (
