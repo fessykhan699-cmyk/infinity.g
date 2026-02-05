@@ -25,12 +25,12 @@ const CaseStudyCard: React.FC<{ study: CaseStudy, index: number }> = ({ study, i
   }, [index]);
 
   return (
-    <div ref={cardRef} className="reactive-glass group relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] glass-card transition-all duration-700 opacity-0">
-      <div className="aspect-[16/10] overflow-hidden">
+    <div ref={cardRef} className="reactive-glass group relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] glass-card transition-all duration-700 opacity-0 motion-popout widget-card">
+      <div className="aspect-[16/10] overflow-hidden product-unveil">
         <img
           src={study.image}
           alt={`Visual representation and showcase of the ${study.title} case study`}
-          className="h-full w-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:group-hover:rotate-1"
+          className="h-full w-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:group-hover:rotate-1 avatar-3d"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent opacity-95"></div>
       </div>

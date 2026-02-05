@@ -149,30 +149,30 @@ const Hero: React.FC = () => {
 
           <ScrollReveal direction="scale" delay={1000} className="relative hidden lg:flex justify-end">
             <div
-              className="relative w-full max-w-md glass-card p-1 rounded-[3rem] lg:rounded-[4rem] shadow-2xl transition-transform duration-500 ease-out border-white/10 reactive-glass parallax-layer"
+              className="relative w-full max-w-md glass-card motion-popout light-field p-1 rounded-[3rem] lg:rounded-[4rem] shadow-2xl transition-transform duration-500 ease-out border-white/10 reactive-glass parallax-layer"
               style={{ '--speed': '0.1' } as React.CSSProperties}
             >
                <div className="p-12 lg:p-16 space-y-10 lg:space-y-12">
                   <div className="flex items-center justify-between">
-                    <div className="flex gap-3">
-                      <div className="w-4 h-4 rounded-full bg-red-500/40"></div>
-                      <div className="w-4 h-4 rounded-full bg-yellow-500/40"></div>
-                      <div className="w-4 h-4 rounded-full bg-green-500/40"></div>
+                    <div className="flex gap-3 trinity-system">
+                      <div className="w-4 h-4 rounded-full bg-red-500/40 trinity-core"></div>
+                      <div className="w-4 h-4 rounded-full bg-yellow-500/40 trinity-core"></div>
+                      <div className="w-4 h-4 rounded-full bg-green-500/40 trinity-core"></div>
                     </div>
-                    <div className="h-1.5 w-32 bg-white/10 rounded-full"></div>
+                    <div className="h-1.5 w-32 skeleton-load rounded-full"></div>
                   </div>
 
                    <div className="space-y-6">
-                      <div className="h-2 bg-white/20 rounded-full w-3/4 animate-pulse"></div>
-                      <div className="h-40 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[2.5rem] border border-white/10 flex items-center justify-center relative group overflow-hidden">
+                      <div className="h-2 skeleton-load rounded-full w-3/4"></div>
+                      <div className="h-40 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[2.5rem] border border-white/10 flex items-center justify-center relative group overflow-hidden widget-card">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.3)_0%,transparent_75%)] group-hover:scale-150 transition-transform duration-700"></div>
-                        <span className="material-symbols-outlined text-7xl text-primary/80 animate-bounce">auto_awesome</span>
+                        <span className="material-symbols-outlined text-7xl text-primary/80 feature-showcase">auto_awesome</span>
                       </div>
                    </div>
 
                    <div className="grid grid-cols-2 gap-4">
-                    <div className="h-16 bg-white/10 rounded-2xl border border-white/10"></div>
-                    <div className="h-16 bg-white/10 rounded-2xl border border-white/10"></div>
+                    <div className="h-16 skeleton-load rounded-2xl border border-white/10 widget-card"></div>
+                    <div className="h-16 skeleton-load rounded-2xl border border-white/10 widget-card"></div>
                   </div>
                </div>
             </div>

@@ -168,7 +168,7 @@ const ServicesSection = () => {
               <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="reactive-glass glass-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out"
+                className="reactive-glass glass-card widget-card group p-7 md:p-9 rounded-[2.5rem] flex flex-col h-full cursor-default transition-all duration-700 ease-out touch-luminous"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <div className="spotlight"></div>
@@ -188,9 +188,9 @@ const ServicesSection = () => {
                   </p>
 
                   <div className="mt-auto">
-                    <a href="#contact" className="inline-flex items-center gap-6 py-3 min-h-[44px] text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500">
+                    <a href="#contact" className="inline-flex items-center gap-6 py-3 min-h-[44px] text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 group-hover:text-white transition-all duration-500 precision-target">
                       Inquire
-                      <span className="material-icons-outlined text-lg group-hover:translate-x-6 transition-transform text-primary group-hover:scale-125">east</span>
+                      <span className="material-icons-outlined text-lg group-hover:translate-x-6 transition-transform text-primary group-hover:scale-125 icon-bounce">east</span>
                     </a>
                   </div>
                 </div>
@@ -232,12 +232,12 @@ const CapabilitiesSection = () => (
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="w-full lg:w-1/2 flex justify-center">
-          <div className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card rounded-full flex items-center justify-center p-12 relative group transition-all duration-700">
+          <div className="w-72 h-72 sm:w-[26rem] sm:h-[26rem] glass-card widget-card rounded-full flex items-center justify-center p-12 relative group transition-all duration-700 light-field avatar-3d">
              <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
-             <div className="absolute inset-8 border border-white/5 rounded-full animate-[spin_80s_linear_infinite]"></div>
-             <div className="absolute inset-16 border border-white/5 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+             <div className="absolute inset-8 border border-white/5 rounded-full trinity-core"></div>
+             <div className="absolute inset-16 border border-white/5 rounded-full trinity-core"></div>
              <div className="text-center z-10 transition-transform duration-700 group-hover:scale-105">
-               <span className="material-symbols-outlined text-7xl text-primary animate-pulse mb-6 block">token</span>
+               <span className="material-symbols-outlined text-7xl text-primary animate-pulse mb-6 block feature-showcase">token</span>
                <h4 className="text-3xl font-bold text-white uppercase tracking-[0.6em] mb-3">Core</h4>
                <p className="text-[10px] text-slate-600 uppercase tracking-widest font-black">Strategic Center</p>
              </div>

@@ -49,18 +49,18 @@ const Contact: React.FC = () => {
             Build <br/><span className="gradient-text">Extraordinary</span>
           </h2>
           <div className="space-y-8 sm:space-y-10 md:space-y-12">
-            <div className="flex gap-6 sm:gap-8 group">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500">
-                <span className="material-icons-outlined text-xl sm:text-2xl">mail</span>
+            <div className="flex gap-6 sm:gap-8 group widget-card precision-target">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-500 light-field">
+                <span className="material-icons-outlined text-xl sm:text-2xl icon-bounce">mail</span>
               </div>
               <div>
                 <h4 className="text-white font-bold text-base sm:text-lg mb-1">Direct Communications</h4>
                 <p className="text-slate-400 text-base sm:text-lg break-all">hello@infinitydigital.ae</p>
               </div>
             </div>
-            <div className="flex gap-6 sm:gap-8 group">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500">
-                <span className="material-icons-outlined text-xl sm:text-2xl">pin_drop</span>
+            <div className="flex gap-6 sm:gap-8 group widget-card precision-target">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-500 light-field">
+                <span className="material-icons-outlined text-xl sm:text-2xl icon-bounce">pin_drop</span>
               </div>
               <div>
                 <h4 className="text-white font-bold text-base sm:text-lg mb-1">Dubai Digital Park</h4>
@@ -71,41 +71,41 @@ const Contact: React.FC = () => {
         </ScrollReveal>
 
         <ScrollReveal direction="right">
-          <div className="glass-card rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] lg:rounded-[4rem] p-6 sm:p-8 md:p-12 lg:p-16 border-white/10 reactive-glass relative overflow-hidden">
+          <div className="glass-card widget-card touch-luminous rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] lg:rounded-[4rem] p-6 sm:p-8 md:p-12 lg:p-16 border-white/10 reactive-glass relative overflow-hidden">
             {isSuccess ? (
-              <div className="text-center py-12 sm:py-16 md:py-20 space-y-6 sm:space-y-8 animate-in fade-in zoom-in duration-500">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 mx-auto">
-                  <span className="material-icons-outlined text-3xl sm:text-4xl">done_all</span>
+              <div className="text-center py-12 sm:py-16 md:py-20 space-y-6 sm:space-y-8 section-morph-enter">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 mx-auto widget-card">
+                  <span className="material-icons-outlined text-3xl sm:text-4xl icon-bounce">done_all</span>
                 </div>
                 <div>
                   <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Transmission Successful</h3>
                   <p className="text-slate-400 text-base sm:text-lg max-w-xs mx-auto">Your inquiry has been persisted to our enterprise secure vault.</p>
                 </div>
                 {aiStrategy && (
-                  <div className="p-6 sm:p-8 bg-white/5 rounded-2xl sm:rounded-3xl text-left border border-white/10 max-h-40 sm:max-h-48 overflow-y-auto">
+                  <div className="p-6 sm:p-8 bg-white/5 rounded-2xl sm:rounded-3xl text-left border border-white/10 max-h-40 sm:max-h-48 overflow-y-auto slow-reveal">
                     <p className="text-[9px] font-black text-primary uppercase tracking-[0.4em] mb-4">Strategic Preview</p>
                     <p className="text-xs text-slate-400 whitespace-pre-line font-light">{aiStrategy}</p>
                   </div>
                 )}
-                <button onClick={() => setIsSuccess(false)} className="magnetic-btn text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all min-h-[44px] px-6 py-3">New Inquiry</button>
+                <button onClick={() => setIsSuccess(false)} className="magnetic-btn widget-card text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all min-h-[44px] px-6 py-3">New Inquiry</button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 md:space-y-10">
                 <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
                   <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Principal Name</label>
-                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
+                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="input-glow search-morph w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
                   <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Secure Email</label>
-                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="input-glow search-morph w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
                 </div>
                 <div className="space-y-3 sm:space-y-4">
                   <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Project Brief & Industry</label>
-                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
+                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="input-glow search-morph w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
                 </div>
-                <button type="submit" disabled={isSubmitting} className="magnetic-btn w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
+                <button type="submit" disabled={isSubmitting} className="magnetic-btn touch-luminous widget-card w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
                   {isSubmitting ? 'Establishing Secure Link...' : 'Submit to Registry'}
                 </button>
               </form>
