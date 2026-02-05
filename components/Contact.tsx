@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
     event.preventDefault();
     setIsSubmitting(true);
     setAiStrategy(null);
-    
+
     try {
       let strategy = null;
       if (formData.industry && formData.projectDescription) {
@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
         ...formData,
         generatedStrategy: strategy || undefined
       });
-      
+
       setIsSuccess(true);
     } catch (error) {
       console.error('Submission failed:', error);
@@ -50,7 +50,7 @@ const Contact: React.FC = () => {
           </h2>
           <div className="space-y-8 sm:space-y-10 md:space-y-12">
             <div className="flex gap-6 sm:gap-8 group">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500">
                 <span className="material-icons-outlined text-xl sm:text-2xl">mail</span>
               </div>
               <div>
@@ -59,7 +59,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-6 sm:gap-8 group">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 transition-all duration-500">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500">
                 <span className="material-icons-outlined text-xl sm:text-2xl">pin_drop</span>
               </div>
               <div>
@@ -87,25 +87,25 @@ const Contact: React.FC = () => {
                     <p className="text-xs text-slate-400 whitespace-pre-line font-light">{aiStrategy}</p>
                   </div>
                 )}
-                <button onClick={() => setIsSuccess(false)} className="text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all min-h-[44px] px-6 py-3">New Inquiry</button>
+                <button onClick={() => setIsSuccess(false)} className="magnetic-btn text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all min-h-[44px] px-6 py-3">New Inquiry</button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 md:space-y-10">
                 <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
                   <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Principal Name</label>
-                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
+                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
                   <div className="space-y-3 sm:space-y-4">
                     <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Secure Email</label>
-                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all min-h-[44px]" />
                   </div>
                 </div>
                 <div className="space-y-3 sm:space-y-4">
                   <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest ml-1">Project Brief & Industry</label>
-                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
+                  <textarea rows={4} required value={formData.projectDescription} onChange={(e) => setFormData({...formData, projectDescription: e.target.value})} className="input-glow w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white focus:border-primary transition-all resize-none" placeholder="Scale, goals, and technical requirements..." />
                 </div>
-                <button type="submit" disabled={isSubmitting} className="w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
+                <button type="submit" disabled={isSubmitting} className="magnetic-btn w-full py-5 sm:py-6 md:py-7 min-h-[44px] rounded-2xl sm:rounded-3xl bg-white text-black text-[10px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-20">
                   {isSubmitting ? 'Establishing Secure Link...' : 'Submit to Registry'}
                 </button>
               </form>
