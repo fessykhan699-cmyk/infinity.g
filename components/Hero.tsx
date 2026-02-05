@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 100 }}
             animate={{ 
               opacity: [0, 0.6, 0],
-              y: [-100, -window.innerHeight],
+              y: [-100, typeof window !== 'undefined' ? -window.innerHeight : -800],
             }}
             transition={{
               duration: 12 + Math.random() * 18,

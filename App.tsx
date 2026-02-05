@@ -91,7 +91,7 @@ const Preloader: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
       >
-        Loading Experience {Math.min(Math.round(progress), 100)}%
+        Loading Experience {Math.round(progress)}%
       </motion.div>
     </motion.div>
   );
