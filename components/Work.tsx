@@ -40,31 +40,33 @@ const CaseStudyCard: React.FC<{ study: CaseStudy, index: number }> = ({ study, i
         <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent opacity-95"></div>
       </div>
 
-      <div className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-end">
-        <motion.div 
-          className="flex flex-wrap gap-2 mb-2 sm:mb-3 md:mb-4"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.15 + 0.3 }}
-          viewport={{ once: true }}
-        >
-          <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-primary/30 text-[8px] md:text-[10px] font-black text-indigo-100 border border-primary/40 uppercase tracking-[0.2em]">{study.category}</span>
-          <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-white/10 text-[8px] md:text-[10px] font-black text-slate-300 border border-white/20 uppercase tracking-[0.2em]">Blueprint</span>
-        </motion.div>
-        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-3 lg:mb-4 leading-tight md:group-hover:text-primary transition-colors">{study.title}</h3>
-        <p className="text-slate-100 text-sm md:text-base lg:text-lg mb-4 sm:mb-6 md:mb-8 lg:mb-10 line-clamp-2 font-light leading-relaxed drop-shadow-md">{study.description}</p>
+      <div className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-end overflow-hidden">
+        <div className="relative z-10 flex flex-col gap-2 sm:gap-3 min-w-0">
+          <motion.div 
+            className="flex flex-wrap gap-1.5 sm:gap-2 min-w-0"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.15 + 0.3 }}
+            viewport={{ once: true }}
+          >
+            <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-primary/30 text-[8px] md:text-[10px] font-black text-indigo-100 border border-primary/40 uppercase tracking-[0.2em] whitespace-nowrap">{study.category}</span>
+            <span className="px-2.5 sm:px-3 md:px-4 py-1 rounded-full bg-white/10 text-[8px] md:text-[10px] font-black text-slate-300 border border-white/20 uppercase tracking-[0.2em] whitespace-nowrap">Blueprint</span>
+          </motion.div>
+          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight md:group-hover:text-primary transition-colors line-clamp-2 break-words">{study.title}</h3>
+          <p className="text-slate-100 text-sm md:text-base lg:text-lg line-clamp-2 md:line-clamp-3 font-light leading-relaxed drop-shadow-md break-words">{study.description}</p>
 
-        <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 border-t border-white/20 pt-4 sm:pt-6 md:pt-8">
-          {study.results.map((res, i) => (
-            <div key={i}>
-              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white flex items-center gap-1 tracking-tighter">
-                <AnimatedCounter target={res.value} duration={1800} />
-                {res.trend === 'up' && <span className="material-symbols-outlined text-green-400 text-xs sm:text-sm md:text-base">arrow_upward</span>}
-                {res.trend === 'down' && <span className="material-symbols-outlined text-accent text-xs sm:text-sm md:text-base">arrow_downward</span>}
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 border-t border-white/20 pt-3 sm:pt-4 md:pt-6 mt-2 sm:mt-3 md:mt-4 min-w-0 flex-wrap">
+            {study.results.map((res, i) => (
+              <div key={i} className="min-w-0">
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white flex items-center gap-1 tracking-tighter">
+                  <AnimatedCounter target={res.value} duration={1800} />
+                  {res.trend === 'up' && <span className="material-symbols-outlined text-green-400 text-xs sm:text-sm md:text-base">arrow_upward</span>}
+                  {res.trend === 'down' && <span className="material-symbols-outlined text-accent text-xs sm:text-sm md:text-base">arrow_downward</span>}
+                </div>
+                <div className="text-[8px] md:text-[9px] lg:text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] md:tracking-[0.3em] mt-1 whitespace-nowrap">{res.label}</div>
               </div>
-              <div className="text-[8px] md:text-[9px] lg:text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] md:tracking-[0.3em] mt-1">{res.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
